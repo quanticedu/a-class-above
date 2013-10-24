@@ -1,0 +1,16 @@
+{
+  "name": "a-class-above",
+  "version": "0.1.0",
+  "description": "OOP for javascript",
+  "repository": {
+    "url": "https://github.com/pedago/a-class-above.git",
+    "type": "git"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-karma": "*",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "phantomjs": "~1.9.2"
+  },
+  "author": "Nate Brustein"
+}
