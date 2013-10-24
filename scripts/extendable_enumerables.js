@@ -4,6 +4,9 @@ angular.module('AClassAbove')
         return {
             
             classMixin: {
+                /*
+                does this work?
+                */
                 extendableArray: function(name) {                    
                     var localName = "_local_"+name;
                     var obj = {};
@@ -29,6 +32,9 @@ angular.module('AClassAbove')
                     this.extend(obj);
                 },
                 
+                /*
+                and this?
+                */
                 extendableObject: function(name) {                    
                     var localName = "_local_"+name;
                     var obj = {};

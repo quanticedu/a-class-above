@@ -18,9 +18,19 @@ module.exports = function(grunt) {
                         'spec/**/*.js']
                 }
             }
-        }
+        },
+        
+        groc: {
+            javascript: [
+              "scripts/**/*.js", "README.md"
+            ],
+            options: {
+              "out": "doc/"
+            }
+          }
     });
 
+    grunt.loadNpmTasks('grunt-groc');
     grunt.loadNpmTasks('grunt-karma');
     grunt.registerTask('default', ['karma']);
 };

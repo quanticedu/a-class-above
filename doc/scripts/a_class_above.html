@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><title>scripts/a_class_above</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="scripts/a_class_above"><meta name="groc-project-path" content="scripts/a_class_above.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/a_class_above.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">,</span> <span class="p">[])</span>
+<span class="p">.</span><span class="nx">provider</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        
+        <span class="k">this</span><span class="p">.</span><span class="nx">$get</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Prototype.Class&#39;</span><span class="p">,</span> <span class="s1">&#39;AClassAbove.ExtendableEnumerables&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Class</span><span class="p">,</span> <span class="nx">Extendables</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">plugins</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">AClassAbove</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">create</span><span class="p">();</span>
+            
+            <span class="kd">function</span> <span class="nx">extend</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">||</span> <span class="p">{};</span>
+                <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+                <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+                <span class="nx">angular</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subclasses</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">subclass</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">angular</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">key</span><span class="p">){</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>don't override things that have been set on a subclass</p></div></div><div class="code"><div class="wrapper">                        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">subclass</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
+                            <span class="kd">var</span> <span class="nx">_obj</span> <span class="o">=</span> <span class="p">{};</span>
+                            <span class="nx">_obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+                            <span class="nx">subclass</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">_obj</span><span class="p">);</span>
+                        <span class="p">}</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span>
+            
+            <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="nx">extend</span><span class="p">;</span>
+            <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+                <span class="nx">subclass</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">factory</span><span class="p">;</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">)</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">==</span> <span class="nb">Function</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">factory</span> <span class="o">=</span> <span class="nx">options</span><span class="p">;</span>
+                        <span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+                    <span class="p">}</span>
+                    <span class="kd">var</span> <span class="nx">subclass</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span><span class="p">;</span>
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">);</span>
+                    
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">factory</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">instanceMixin</span> <span class="o">=</span> <span class="nx">factory</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">subclass</span><span class="p">)</span> <span class="o">||</span> <span class="p">{};</span>
+                        <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">subclass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">instanceMixin</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    
+                    <span class="k">return</span> <span class="nx">subclass</span><span class="p">;</span>
+                <span class="p">},</span>
+                
+                <span class="nx">include</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+            
+            <span class="nx">angular</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">plugins</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">mixins</span><span class="p">){</span>
+                <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">mixins</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">||</span> <span class="p">{});</span>
+                <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">include</span><span class="p">(</span><span class="nx">mixins</span><span class="p">.</span><span class="nx">instanceMixin</span> <span class="o">||</span> <span class="p">{});</span>
+            <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+            
+            <span class="k">return</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">AClassAbove</span><span class="p">,</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">);</span>
+            
+        <span class="p">}];</span>
+        
+    <span class="p">});</span></div></div></div></div></body></html>

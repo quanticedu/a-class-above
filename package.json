@@ -10,7 +10,8 @@
     "grunt": "*",
     "grunt-karma": "*",
     "karma-phantomjs-launcher": "~0.1.0",
-    "phantomjs": "~1.9.2"
+    "phantomjs": "~1.9.2",
+    "grunt-groc": "~0.4.0"
   },
   "author": "Nate Brustein"
 }
