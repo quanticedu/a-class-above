@@ -88,10 +88,10 @@ describe('AClassAbove.ExtendableEnumerables', function() {
             // A subclass can override properties that have been
             // set on the superclass
             //Override a property on the subclass's object ...
-            SubKlass.obj().set('a', 2);
+            SubKlass.myObj().set('a', 2);
             //... and not the superclass and subclass have different values for that property.
-            expectEqualOwnProperties({a: 1}, Klass.obj());
-            expectEqualOwnProperties({a: 2, b: 1}, SubKlass.obj());
+            expectEqualOwnProperties({a: 1}, Klass.myObj());
+            expectEqualOwnProperties({a: 2, b: 1}, SubKlass.myObj());
         });
     });
     
