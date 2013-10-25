@@ -1,7 +1,7 @@
 {
     "name": "a-class-above",
-    "version": "0.0.9",
-    "main": "./scripts/a_class_above.js",
+    "version": "0.0.11",
+    "main": "./dist/a_class_above.js",
     "dependencies": {
         "angular": ">1.0.0"
     },
