@@ -215,6 +215,54 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "slug": "injecting-aclassabove-into-a-service"
               },
               "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Setting instance properties with an object",
+                "slug": "setting-instance-properties-with-an-object"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "The $super keyword",
+                "slug": "the-super-keyword"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Using an initialization function to set class properties",
+                "slug": "using-an-initialization-function-to-set-class-properties"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Setting class properties AND instance properties with subclass()",
+                "slug": "setting-class-properties-and-instance-properties-with-subclass"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Creating inheritable class properties with 'extend'.",
+                "slug": "creating-inheritable-class-properties-with-extend"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Adding instance methods with 'include'",
+                "slug": "adding-instance-methods-with-include"
+              },
+              "depth": 1
             }
           ]
         }, {

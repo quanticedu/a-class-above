@@ -25,18 +25,19 @@ angular.module('AClassAbove', [])
             AClassAbove.extend = extend;
             AClassAbove.extend({
                 subclass: function(options) {
-                    var factory;
+                    var initFunction;
                     if (!options) options = {};
                     if (options.constructor == Function) {
-                        factory = options;
+                        initFunction = options;
                         options = {};
                     }
+                    
                     var subclass = Class.create(this, options);
                     subclass.extend = AClassAbove.extend;
                     subclass.extend(this.classMixin);
                     
-                    if (factory) {
-                        var instanceMixin = factory.apply(subclass) || {};
+                    if (initFunction) {
+                        var instanceMixin = initFunction.apply(subclass) || {};
                         angular.extend(subclass.prototype, instanceMixin);
                     }
                     

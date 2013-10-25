@@ -11,4 +11,6 @@ include:
 
 # Installation
 FIXME  
+
+[A link](spec/a_class_above_spec.html)
 			

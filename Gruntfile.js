@@ -8,7 +8,8 @@ module.exports = function(grunt) {
                 options: {
                     frameworks: ['jasmine'],
                     browsers: ['Chrome'],
-                    singleRun: true,
+                    singleRun: false,
+                    autoWatch: true,
                     files: [
                         'karma/phantomjs-hacks.js',
                         'bower_components/angular/angular.js',
