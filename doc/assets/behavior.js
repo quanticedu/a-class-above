@@ -13,34 +13,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/Users/nbrustein/code/a-class-above/README.md",
-        "projectPath": "README.md",
+        "sourcePath": "/Users/nbrustein/code/a-class-above/doc.md",
+        "projectPath": "doc.md",
         "targetPath": "index",
         "pageTitle": "index",
-        "firstHeader": {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "a-class-above",
-            "slug": "a-class-above",
-            "isFileHeader": true
-          },
-          "depth": 1
-        },
-        "title": "a-class-above"
+        "title": "index"
       },
       "depth": 1,
-      "outline": [
-        {
-          "type": "heading",
-          "data": {
-            "level": 1,
-            "title": "Installation",
-            "slug": "installation"
-          },
-          "depth": 1
-        }
-      ]
+      "outline": []
     }, {
       "type": "folder",
       "data": {
@@ -277,14 +257,43 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/nbrustein/code/a-class-above/spec/extendables_spec.js",
-            "projectPath": "spec/extendables_spec.js",
-            "targetPath": "spec/extendables_spec",
-            "pageTitle": "spec/extendables_spec",
-            "title": "extendables_spec"
+            "sourcePath": "/Users/nbrustein/code/a-class-above/spec/extendable_enumerables_spec.js",
+            "projectPath": "spec/extendable_enumerables_spec.js",
+            "targetPath": "spec/extendable_enumerables_spec",
+            "pageTitle": "spec/extendable_enumerables_spec",
+            "title": "extendable_enumerables_spec"
           },
           "depth": 2,
-          "outline": []
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Extendable Enumerables",
+                "slug": "extendable-enumerables"
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "extendableArray",
+                    "slug": "extendablearray"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "extendableObject",
+                    "slug": "extendableobject"
+                  },
+                  "depth": 3
+                }
+              ]
+            }
+          ]
         }
       ]
     }

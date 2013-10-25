@@ -23,10 +23,11 @@ module.exports = function(grunt) {
         
         groc: {
             javascript: [
-              "spec/**/*.js", "scripts/**/*.js", "README.md"
-            ],
+              "spec/**/*.js", "scripts/**/*.js", "doc.md"
+            ],            
             options: {
-              "out": "doc/"
+              "out": "doc/",
+              "index": 'doc.md'
             }
           }
     });
