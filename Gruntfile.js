@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         
         groc: {
             javascript: [
-              "scripts/**/*.js", "README.md"
+              "spec/**/*.js", "scripts/**/*.js", "README.md"
             ],
             options: {
               "out": "doc/"

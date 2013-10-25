@@ -30,7 +30,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "title": "a-class-above"
       },
       "depth": 1,
-      "outline": []
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Installation",
+            "slug": "installation"
+          },
+          "depth": 1
+        }
+      ]
     }, {
       "type": "folder",
       "data": {
@@ -159,6 +169,74 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               ]
             }
           ]
+        }
+      ]
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "spec",
+        "title": "spec"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/nbrustein/code/a-class-above/spec/a_class_above_spec.js",
+            "projectPath": "spec/a_class_above_spec.js",
+            "targetPath": "spec/a_class_above_spec",
+            "pageTitle": "spec/a_class_above_spec",
+            "title": "a_class_above_spec"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Adding AClassAbove to your app",
+                "slug": "adding-aclassabove-to-your-app"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Injecting AClassAbove into a service",
+                "slug": "injecting-aclassabove-into-a-service"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/nbrustein/code/a-class-above/spec/extendables_spec.js",
+            "projectPath": "spec/extendables_spec.js",
+            "targetPath": "spec/extendables_spec",
+            "pageTitle": "spec/extendables_spec",
+            "title": "extendables_spec"
+          },
+          "depth": 2,
+          "outline": []
         }
       ]
     }
