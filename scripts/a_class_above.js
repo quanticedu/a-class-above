@@ -45,7 +45,7 @@ angular.module('AClassAbove', [])
                 },
                 
                 include: function(options) {
-                    angular.extend(this.prototype, options);
+                    this.addMethods(options);
                 }
             });
             
