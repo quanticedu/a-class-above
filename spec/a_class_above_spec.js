@@ -229,6 +229,41 @@ describe('AClassAbove', function() {
             expect(Klass.classProp).toBe(true);
             expect(new Klass().instanceProp).toBe(true);
         });
+        
+        it('should work with an initialization function and $super', function() {
+            var called = [];
+            var SuperClass = AClassAbove.subclass(function() {
+                return {
+                    initialize: function() {
+                        called.push('SuperClass#init');
+                    },
+                    meth: function() {
+                        called.push('SuperClass#meth');
+                    }
+                }
+            });
+            
+            var SubClass = SuperClass.subclass(function() {
+                return {
+                    initialize: function($super) {
+                        $super();
+                        called.push('SubClass#init');
+                    },
+                    meth: function($super) {
+                        $super();
+                        called.push('SubClass#meth');
+                    }
+                }
+            });
+            
+            new SubClass().meth();
+            expect(called).toEqual([
+                'SuperClass#init',
+                'SubClass#init',
+                'SuperClass#meth',
+                'SubClass#meth'
+            ]);
+        });
     });
 
 

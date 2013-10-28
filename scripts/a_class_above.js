@@ -38,7 +38,7 @@ angular.module('AClassAbove', [])
                     
                     if (initFunction) {
                         var instanceMixin = initFunction.apply(subclass) || {};
-                        angular.extend(subclass.prototype, instanceMixin);
+                        subclass.addMethods(instanceMixin);
                     }
                     
                     return subclass;
