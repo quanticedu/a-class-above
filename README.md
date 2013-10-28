@@ -29,4 +29,4 @@ or
 
 ### Documentation
 
-[0.0.13](http://www.pedago.com/a_class_above/docs/0.0.13)
+[0.0.13](http://www.pedago.com/a-class-above/docs/0.0.13)
