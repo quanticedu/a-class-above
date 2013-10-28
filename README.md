@@ -22,10 +22,10 @@ From the bower.json file
 	
 In your html
 
-    <script type="text/javascript" src="bower_components/iguana/dist/a_class_above.js"></script>
+    <script type="text/javascript" src="bower_components/a-class-above/dist/a_class_above.js"></script>
 or
 
-    <script type="text/javascript" src="bower_components/iguana/dist/a_class_above.min.js"></script>
+    <script type="text/javascript" src="bower_components/a-class-above/dist/a_class_above.min.js"></script>
 
 ### Documentation
 
