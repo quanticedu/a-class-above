@@ -1,16 +1,32 @@
 # a-class-above
 
-A Class Above provides a basic OOP implementation, allowing
-developers to create class hierarchies in angular apps.  Features 
-include:
+OOP for angular
 
-* Inheritable instance and class methods.
-* Simple reference to super methods based on Prototype's $super implementation.
-* "Extendable enumerables," which allow the creation of arrays or objects that
-  can be appended to by each subclass along the hierarchy.
+a-class-above provides basic OOP functionality based on prototypejs's class implementation.
 
-# Installation
-FIXME  
+### Installation
 
-[A link](spec/a_class_above_spec.html)
-			
+From the command line:
+    
+    bower install a-class-above
+
+From the bower.json file
+    
+    {
+	    "...
+	    "dependencies": {
+	        "a-class-above": "0.0.13"
+	    },
+		...
+	}
+	
+In your html
+
+    <script type="text/javascript" src="bower_components/iguana/dist/a_class_above.js"></script>
+or
+
+    <script type="text/javascript" src="bower_components/iguana/dist/a_class_above.min.js"></script>
+
+### Documentation
+
+[0.0.13](http://www.pedago.com/a_class_above/docs/0.0.13)
