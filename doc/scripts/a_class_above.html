@@ -6,7 +6,7 @@
             <span class="kd">var</span> <span class="nx">AClassAbove</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">create</span><span class="p">();</span>
             
             <span class="kd">function</span> <span class="nx">extend</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">||</span> <span class="p">{};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>when extend is called directly on a class, the object
+                </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>when extend is called directly on a class, the object
 mixed in to the classMixin, which becomes an authoritative
 record of all the class properties added at this level of the hierarchy</p></div></div><div class="code"><div class="wrapper">                <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
                 </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>subExtend copies properties on subclasses, but does
@@ -30,6 +30,7 @@ using extend</p></div></div><div class="code"><div class="wrapper">             
             
             <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="nx">extend</span><span class="p">;</span>
             <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subExtend</span> <span class="o">=</span> <span class="nx">subExtend</span><span class="p">;</span>
+            <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">=</span> <span class="p">{};</span>
             <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
                 <span class="nx">subclass</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
                     <span class="kd">var</span> <span class="nx">initFunction</span><span class="p">;</span>
@@ -42,7 +43,13 @@ using extend</p></div></div><div class="code"><div class="wrapper">             
                     <span class="kd">var</span> <span class="nx">subclass</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
                     <span class="nx">subclass</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span><span class="p">;</span>
                     <span class="nx">subclass</span><span class="p">.</span><span class="nx">subExtend</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subExtend</span><span class="p">;</span>
-                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">);</span>
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">=</span> <span class="p">{};</span>
+                    <span class="kd">var</span> <span class="nx">klass</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+                    <span class="k">while</span><span class="p">(</span><span class="nx">klass</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">subclass</span><span class="p">.</span><span class="nx">subExtend</span><span class="p">(</span><span class="nx">klass</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">);</span>
+                        <span class="nx">klass</span> <span class="o">=</span> <span class="nx">klass</span><span class="p">.</span><span class="nx">superclass</span><span class="p">;</span>
+                    <span class="p">}</span>
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">subExtend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">);</span>
                     
                     <span class="k">if</span> <span class="p">(</span><span class="nx">initFunction</span><span class="p">)</span> <span class="p">{</span>
                         <span class="kd">var</span> <span class="nx">instanceMixin</span> <span class="o">=</span> <span class="nx">initFunction</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">subclass</span><span class="p">)</span> <span class="o">||</span> <span class="p">{};</span>

@@ -279,6 +279,29 @@ mixed in at the class level and inherited by all subclasses.</p></div></div><div
             <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
             
         <span class="p">});</span>
+        
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should override methods previously set with extend in a different order&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span><span class="nx">prop</span><span class="o">:</span> <span class="mi">1</span><span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">SubClass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>            
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span><span class="nx">prop</span><span class="o">:</span> <span class="mi">2</span><span class="p">});</span>                        
+            
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SuperClass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            
+        <span class="p">});</span>
+        
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should pass class methods all the way down the hierarchy&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span><span class="nx">prop</span><span class="o">:</span> <span class="mi">1</span><span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">klass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">subclass</span> <span class="o">=</span> <span class="nx">klass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">subclass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="nx">klass</span> <span class="o">=</span> <span class="nx">subclass</span><span class="p">;</span>
+            <span class="p">}</span>
+            
+        <span class="p">});</span>
     <span class="p">});</span>
 
 
