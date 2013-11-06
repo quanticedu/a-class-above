@@ -7,22 +7,35 @@ angular.module('AClassAbove', [])
             
             function extend(obj) {
                 this.classMixin = this.classMixin || {};
+                // when extend is called directly on a class, the object
+                // mixed in to the classMixin, which becomes an authoritative
+                // record of all the class properties added at this level of the hierarchy
                 angular.extend(this.classMixin, obj);
+                
+                // subExtend copies properties on subclasses, but does
+                // not add them to the classMixin, allowing us to keep track
+                // of which things have been overridden where in the hierarchy
+                this.subExtend(obj);
+                return this;
+            }
+            
+            function subExtend(obj) {
                 angular.extend(this, obj);
                 angular.forEach(this.subclasses, function(subclass) {
                     angular.forEach(obj, function(val, key){
                         // don't override things that have been set on a subclass
-                        if (!subclass.hasOwnProperty(key)) {
+                        // using extend
+                        if (!subclass.classMixin.hasOwnProperty(key)) {
                             var _obj = {};
                             _obj[key] = val;
-                            subclass.extend(_obj);
+                            subclass.subExtend(_obj);
                         }
                     });
                 });
-                return this;
             }
             
             AClassAbove.extend = extend;
+            AClassAbove.subExtend = subExtend;
             AClassAbove.extend({
                 subclass: function(options) {
                     var initFunction;
@@ -34,6 +47,7 @@ angular.module('AClassAbove', [])
                     
                     var subclass = Class.create(this, options);
                     subclass.extend = AClassAbove.extend;
+                    subclass.subExtend = AClassAbove.subExtend;
                     subclass.extend(this.classMixin);
                     
                     if (initFunction) {

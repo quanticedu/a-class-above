@@ -326,6 +326,17 @@ describe('AClassAbove', function() {
             });
             expect(SubClass.classProperty).toBe('setOnSub');
         });
+        
+        it('should override methods previously set with extend', function() {
+            var SuperClass = AClassAbove.subclass();
+            var SubClass = SuperClass.subclass();
+            
+            SuperClass.extend({prop: 1});
+            SuperClass.extend({prop: 2});
+            expect(SuperClass.prop).toBe(2);
+            expect(SubClass.prop).toBe(2);
+            
+        });
     });
 
 
