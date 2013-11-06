@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="en"><head><title>spec/a_class_above_spec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="spec/a_class_above_spec"><meta name="groc-project-path" content="spec/a_class_above_spec.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">spec/a_class_above_spec.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">myApp</span><span class="p">,</span> <span class="nx">_AClassAbove</span><span class="p">,</span> <span class="nx">$injector</span><span class="p">;</span>
+
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="adding-aclassabove-to-your-app">Adding AClassAbove to your app</h3>
+
+<p>The name of the module is 'AClassAbove'.
+You must add it to your app as a dependency.</p></div></div><div class="code"><div class="wrapper">        <span class="c1">//Adding AClassAbove to your app</span>
+        <span class="nx">myApp</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;myApp&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">]);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">        <span class="nx">module</span><span class="p">(</span><span class="s1">&#39;myApp&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+
+
+
+
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;dependency injection&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="injecting-aclassabove-into-a-service">Injecting AClassAbove into a service</h3>
+
+<p>The name of the service is also 'AClassAbove'.
+You can inject it by including it as an argument to
+a service in your app.</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should be injectable as an argument&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="c1">//Injecting AClassAbove as an argument to a factory</span>
+            <span class="nx">myApp</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">AClassAbove</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">AClassAbove</span><span class="p">).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+            <span class="p">});</span>
+
+            <span class="nx">inject</span><span class="p">([</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}]);</span>
+
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Or you can inject it via bracket notation,
+which will work with minification.</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should be injectable via bracket notation&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="c1">//Injecting AClassAbove with bracket notation</span>
+            <span class="nx">myApp</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Class</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">Class</span><span class="p">).</span><span class="nx">not</span><span class="p">.</span><span class="nx">toBeUndefined</span><span class="p">();</span>
+            <span class="p">}]);</span>
+
+            <span class="nx">inject</span><span class="p">([</span><span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}]);</span>
+        <span class="p">});</span>
+
+
+
+
+
+
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;subclass&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">AClassAbove</span><span class="p">;</span>
+
+        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_AClassAbove_</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">AClassAbove</span> <span class="o">=</span> <span class="nx">_AClassAbove_</span><span class="p">;</span>
+            <span class="p">});</span>
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="setting-instance-properties-with-an-object">Setting instance properties with an object</h3>
+
+<p>If you just want to set instance properties on your
+new class, then you can pass an object to subclass().</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create a class from an object&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="kd">var</span> <span class="nx">Klass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">({</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>'initialize' is a special property that 
+will be called when new instances of your
+class are created. </p></div></div><div class="code"><div class="wrapper">                <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">wasInitialized</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">},</span>
+
+                <span class="nx">instanceProperty</span><span class="o">:</span> <span class="s1">&#39;set&#39;</span>
+            <span class="p">});</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">superclass</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="nx">AClassAbove</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">Klass</span><span class="p">().</span><span class="nx">wasInitialized</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">Klass</span><span class="p">().</span><span class="nx">instanceProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">);</span>
+
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="the-super-keyword">The $super keyword</h3>
+
+<p>If the first argument to any instance method is '$super', then
+that argument will refer to the superclass's method.</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create a subclass and support the $super keyword&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">({</span>
+
+                <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="p">[];</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SuperClass#initialize was called.&#39;</span><span class="p">);</span>
+                <span class="p">},</span>
+
+                <span class="nx">instanceMethod</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SuperClass#instanceMethod was called.&#39;</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>SubClass1 calls $super inside of 'initialize' and
+'instanceMethod', so in both cases the superclass's 
+method is called.</p></div></div><div class="code"><div class="wrapper">            <span class="kd">var</span> <span class="nx">SubClass1</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">({</span>
+                
+                <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$super</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">//calling the superclass&#39;s initialize</span>
+                    <span class="nx">$super</span><span class="p">();</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SubClass#initialize was called&#39;</span><span class="p">);</span>
+                <span class="p">},</span>
+                
+                <span class="nx">instanceMethod</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$super</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">//calling the superclass&#39;s instanceMethod</span>
+                    <span class="nx">$super</span><span class="p">();</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SubClass#instanceMethod was called.&#39;</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+                <span class="p">}</span>
+
+            <span class="p">});</span>
+
+            <span class="c1">//verifying that the expected methods were called</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">SubClass1</span><span class="p">().</span><span class="nx">instanceMethod</span><span class="p">().</span><span class="nx">log</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span>
+                <span class="s1">&#39;SuperClass#initialize was called.&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;SubClass#initialize was called&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;SuperClass#instanceMethod was called.&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;SubClass#instanceMethod was called.&#39;</span><span class="p">]);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>SubClass2 calls $super inside of 'initialize' but not
+'instanceMethod', so the superclass's 'instanceMethod'
+is never called.</p></div></div><div class="code"><div class="wrapper">            <span class="kd">var</span> <span class="nx">SubClass2</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">({</span>
+                
+                <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$super</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">//calling the superclass&#39;s initialize</span>
+                    <span class="nx">$super</span><span class="p">();</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SubClass#initialize was called&#39;</span><span class="p">);</span>
+                <span class="p">},</span>
+                
+                <span class="nx">instanceMethod</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$super</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">//NOT calling the superclass&#39;s instanceMethod</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SubClass#instanceMethod was called.&#39;</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+                <span class="p">}</span>
+
+            <span class="p">});</span>
+
+            <span class="c1">//verifying that the expected methods were called</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">SubClass2</span><span class="p">().</span><span class="nx">instanceMethod</span><span class="p">().</span><span class="nx">log</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span>
+                <span class="s1">&#39;SuperClass#initialize was called.&#39;</span><span class="p">,</span> 
+                <span class="s1">&#39;SubClass#initialize was called&#39;</span><span class="p">,</span>
+                <span class="c1">//SuperClass#instanceMethod was never called</span>
+                <span class="s1">&#39;SubClass#instanceMethod was called.&#39;</span><span class="p">]);</span>
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="using-an-initialization-function-to-set-class-properties">Using an initialization function to set class properties</h3>
+
+<p>If you want to add class properties or call class methods
+on your new class, then you can pass an initialization
+function to subclass().  The initialization function is
+called in the context of your new class, so use "this"
+to access the class inside of the initialization function.</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should support an initialization function, and call it in the context of the new class&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="c1">//passing an initialization function to subclass()</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+                <span class="c1">//Creating an inheritable class property and an inheritable</span>
+                <span class="c1">//class method with &#39;extend&#39; (see below for more on extend).</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+                    <span class="nx">aClassProperty</span><span class="o">:</span> <span class="s1">&#39;set&#39;</span><span class="p">,</span>
+                    <span class="nx">aClassMethod</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">aClassMethodWasCalled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+
+                <span class="c1">//setting an uninheritable class property</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">aClassMethodWasCalled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">});</span>
+
+            <span class="c1">//SuperClass has aClassProperty</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SuperClass</span><span class="p">.</span><span class="nx">aClassProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;set&#39;</span><span class="p">);</span>
+            <span class="c1">//we never called SuperClass.aClassMethod(), so aClassMethodWasCalled is false</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SuperClass</span><span class="p">.</span><span class="nx">aClassMethodWasCalled</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
+
+            <span class="c1">//Creating a subclass, and calling the class </span>
+            <span class="c1">//method that was defined in the superclass.</span>
+            <span class="kd">var</span> <span class="nx">SubClass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">aClassMethodWasCalled</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">aClassMethod</span><span class="p">();</span>
+            <span class="p">});</span>
+
+            <span class="c1">//SubClass inherited aClassProperty</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">aClassProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s2">&quot;set&quot;</span><span class="p">);</span>
+            <span class="c1">//We called SubClass.aClassMethod() in our initialization function, so aClassMethodWasCalled is true</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">aClassMethodWasCalled</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="setting-class-properties-and-instance-properties-with-subclass">Setting class properties AND instance properties with subclass()</h3>
+
+<p>If the return value of your initialization function is
+an object, then it will be mixed in to your class, creating
+instance properties.</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create a subclass from an initialization function&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">Klass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">classProp</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="nx">instanceProp</span><span class="o">:</span> <span class="kc">true</span>
+                <span class="p">};</span>
+            <span class="p">});</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">classProp</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">Klass</span><span class="p">().</span><span class="nx">instanceProp</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">});</span>
+        
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should work with an initialization function and $super&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">called</span> <span class="o">=</span> <span class="p">[];</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">called</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SuperClass#init&#39;</span><span class="p">);</span>
+                    <span class="p">},</span>
+                    <span class="nx">meth</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">called</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SuperClass#meth&#39;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+            
+            <span class="kd">var</span> <span class="nx">SubClass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$super</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">$super</span><span class="p">();</span>
+                        <span class="nx">called</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SubClass#init&#39;</span><span class="p">);</span>
+                    <span class="p">},</span>
+                    <span class="nx">meth</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">$super</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">$super</span><span class="p">();</span>
+                        <span class="nx">called</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;SubClass#meth&#39;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+            
+            <span class="k">new</span> <span class="nx">SubClass</span><span class="p">().</span><span class="nx">meth</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">called</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">([</span>
+                <span class="s1">&#39;SuperClass#init&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SubClass#init&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SuperClass#meth&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;SubClass#meth&#39;</span>
+            <span class="p">]);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;extend&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">AClassAbove</span><span class="p">;</span>
+
+        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_AClassAbove_</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">AClassAbove</span> <span class="o">=</span> <span class="nx">_AClassAbove_</span><span class="p">;</span>
+            <span class="p">});</span>
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="creating-inheritable-class-properties-with-extend">Creating inheritable class properties with 'extend'.</h3>
+
+<p>The 'extend' class method takes an object that will be 
+mixed in at the class level and inherited by all subclasses.</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should add classMethods&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="kd">var</span> <span class="nx">Klass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+                    <span class="nx">classProperty</span><span class="o">:</span> <span class="s1">&#39;classProperty&#39;</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">classProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;classProperty&#39;</span><span class="p">);</span>
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Properties set with extend will be inherited by subclasses</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should allow subclasses to inherit class methods&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+
+            <span class="c1">//If extend is called before the subclass is created, the property</span>
+            <span class="c1">//should be inherited</span>
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+                <span class="nx">classProperty</span><span class="o">:</span> <span class="s1">&#39;classProperty&#39;</span>
+            <span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">SubClass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">classProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;classProperty&#39;</span><span class="p">);</span>
+
+            <span class="c1">//If extend is called after the subclass is created, the property</span>
+            <span class="c1">//should still be inherited            </span>
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+                <span class="nx">anotherClassProperty</span><span class="o">:</span> <span class="s1">&#39;anotherClassProperty&#39;</span>
+            <span class="p">});</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">anotherClassProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;anotherClassProperty&#39;</span><span class="p">);</span>
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Properties set with extend can be overridden in subclasses</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should not override classMethods on a subclass&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">SubClass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            
+            <span class="nx">SubClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+                <span class="nx">classProperty</span><span class="o">:</span> <span class="s1">&#39;setOnSub&#39;</span>
+            <span class="p">});</span>
+            
+            <span class="c1">//When the superclass calls extend, it should not</span>
+            <span class="c1">//override the value that has already been set on the </span>
+            <span class="c1">//subclass.</span>
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+                <span class="nx">classProperty</span><span class="o">:</span> <span class="s1">&#39;setOnSuper&#39;</span>
+            <span class="p">});</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">classProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;setOnSub&#39;</span><span class="p">);</span>
+        <span class="p">});</span>
+        
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should override methods previously set with extend&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">SubClass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span><span class="nx">prop</span><span class="o">:</span> <span class="mi">1</span><span class="p">});</span>
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span><span class="nx">prop</span><span class="o">:</span> <span class="mi">2</span><span class="p">});</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SuperClass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            
+        <span class="p">});</span>
+        
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should override methods previously set with extend in a different order&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span><span class="nx">prop</span><span class="o">:</span> <span class="mi">1</span><span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">SubClass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>            
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span><span class="nx">prop</span><span class="o">:</span> <span class="mi">2</span><span class="p">});</span>                        
+            
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SuperClass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubClass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            
+        <span class="p">});</span>
+        
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should pass class methods all the way down the hierarchy&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">SuperClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            <span class="nx">SuperClass</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span><span class="nx">prop</span><span class="o">:</span> <span class="mi">1</span><span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">klass</span> <span class="o">=</span> <span class="nx">SuperClass</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">subclass</span> <span class="o">=</span> <span class="nx">klass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+                <span class="nx">expect</span><span class="p">(</span><span class="nx">subclass</span><span class="p">.</span><span class="nx">prop</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="nx">klass</span> <span class="o">=</span> <span class="nx">subclass</span><span class="p">;</span>
+            <span class="p">}</span>
+            
+        <span class="p">});</span>
+    <span class="p">});</span>
+
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;include&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">AClassAbove</span><span class="p">;</span>
+
+        <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_AClassAbove_</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">AClassAbove</span> <span class="o">=</span> <span class="nx">_AClassAbove_</span><span class="p">;</span>
+            <span class="p">});</span>
+        <span class="p">});</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="adding-instance-methods-with-include">Adding instance methods with 'include'</h1>
+
+<p>If you want to add more instance properties after calling subclass(),
+you can use include to add an instance mixin.  This is equivalent
+to just adding the properties onto the prototype of the class.</p></div></div><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should add onto prototype&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="kd">var</span> <span class="nx">Klass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{});</span>
+            <span class="nx">Klass</span><span class="p">.</span><span class="nx">include</span><span class="p">({</span>
+                <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span>
+            <span class="p">});</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">a</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+<span class="p">});</span></div></div></div></div></body></html>
