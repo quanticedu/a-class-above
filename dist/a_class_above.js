@@ -6,7 +6,7 @@ angular.module('AClassAbove', [])
             var AClassAbove = Class.create();
             
             function extend(obj) {
-                this.classMixin = this.classMixin || {};
+                
                 // when extend is called directly on a class, the object
                 // mixed in to the classMixin, which becomes an authoritative
                 // record of all the class properties added at this level of the hierarchy
@@ -36,6 +36,7 @@ angular.module('AClassAbove', [])
             
             AClassAbove.extend = extend;
             AClassAbove.subExtend = subExtend;
+            AClassAbove.classMixin = {};
             AClassAbove.extend({
                 subclass: function(options) {
                     var initFunction;
@@ -48,7 +49,13 @@ angular.module('AClassAbove', [])
                     var subclass = Class.create(this, options);
                     subclass.extend = AClassAbove.extend;
                     subclass.subExtend = AClassAbove.subExtend;
-                    subclass.extend(this.classMixin);
+                    subclass.classMixin = {};
+                    var klass = this;
+                    while(klass) {
+                        subclass.subExtend(klass.classMixin);
+                        klass = klass.superclass;
+                    }
+                    subclass.subExtend(this.classMixin);
                     
                     if (initFunction) {
                         var instanceMixin = initFunction.apply(subclass) || {};

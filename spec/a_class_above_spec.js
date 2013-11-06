@@ -337,6 +337,29 @@ describe('AClassAbove', function() {
             expect(SubClass.prop).toBe(2);
             
         });
+        
+        it('should override methods previously set with extend in a different order', function() {
+            var SuperClass = AClassAbove.subclass();
+            SuperClass.extend({prop: 1});
+            var SubClass = SuperClass.subclass();            
+            SuperClass.extend({prop: 2});                        
+            
+            expect(SuperClass.prop).toBe(2);
+            expect(SubClass.prop).toBe(2);
+            
+        });
+        
+        it('should pass class methods all the way down the hierarchy', function() {
+            var SuperClass = AClassAbove.subclass();
+            SuperClass.extend({prop: 1});
+            var klass = SuperClass;
+            for (var i = 0; i < 5; i++) {
+                var subclass = klass.subclass();
+                expect(subclass.prop).toBe(1);
+                klass = subclass;
+            }
+            
+        });
     });
 
 
