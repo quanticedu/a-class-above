@@ -15,7 +15,7 @@ angular.module('AClassAbove', [])
             function addInheritableProperties() {
                 var properties = Array.prototype.slice.call(arguments, 0);
                 angular.forEach(properties, function(name){
-                    if (this[name]) {
+                    if (this.hasOwnProperty(name)) {
                         return;
                     }
                     this._inheritableClassProperties.push(name);
