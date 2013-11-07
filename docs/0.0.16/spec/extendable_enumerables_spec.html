@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><head><title>spec/extendable_enumerables_spec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="spec/extendable_enumerables_spec"><meta name="groc-project-path" content="spec/extendable_enumerables_spec.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">spec/extendable_enumerables_spec.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="extendable-enumerables">Extendable Enumerables</h1>
+
+<p>You can use extendable enumberables when you want to have an array or an object on a class
+that inherits all of the elements from a superclass and also
+allows the addition of new elements that will be available
+to this class and all of it's subclasses.  </p>
+
+<p>One example use case is callbacks.  A class might have a list of 
+callbacks (i.e. beforeSave, afterInitialization, ...). Each class
+should inherit all of it's superclass's callbacks and also be
+able to add on new callbacks.</p></div></div><div class="code"><div class="wrapper"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;AClassAbove.ExtendableEnumerables&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">AClassAbove</span><span class="p">;</span>
+
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">);</span>
+
+        <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_AClassAbove_</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">AClassAbove</span> <span class="o">=</span> <span class="nx">_AClassAbove_</span><span class="p">;</span>
+        <span class="p">});</span>
+
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;extendableArray&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="extendablearray">extendableArray</h3></div></div></div><div class="segment"><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create an array that can be extended&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">Klass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Define the extendable array with a name 'myArr'</p></div></div><div class="code"><div class="wrapper">                <span class="k">this</span><span class="p">.</span><span class="nx">extendableArray</span><span class="p">(</span><span class="s1">&#39;myArr&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">SubKlass</span> <span class="o">=</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Access the array with the method myArr()</p></div></div><div class="code"><div class="wrapper">            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">myArr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([]);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myArr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([]);</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add new elements to the array with it's push() method.</p></div></div><div class="code"><div class="wrapper">            <span class="c1">//Add an element on the superclass&#39;s array ...</span>
+            <span class="nx">Klass</span><span class="p">.</span><span class="nx">myArr</span><span class="p">().</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+            <span class="c1">//... and it is accessible on the subclass;</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">myArr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">]);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myArr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">]);</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>If an element is added to the subclass, it is not
+available in the super class</p></div></div><div class="code"><div class="wrapper">            <span class="c1">//Add an element on the subclass&#39;s array ...</span>
+            <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myArr</span><span class="p">().</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">);</span>
+            <span class="c1">//... and it is not available to the superclass.</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">myArr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">]);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myArr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;extendableObject&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="extendableobject">extendableObject</h3></div></div></div><div class="segment"><div class="code"><div class="wrapper">        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create an object that can be extended&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            
+            <span class="kd">var</span> <span class="nx">Klass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Define the extendable object with a name 'myObj'</p></div></div><div class="code"><div class="wrapper">                <span class="k">this</span><span class="p">.</span><span class="nx">extendableObject</span><span class="p">(</span><span class="s1">&#39;myObj&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">SubKlass</span> <span class="o">=</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Access the object with myObj()</p></div></div><div class="code"><div class="wrapper">            <span class="nx">expectEqualOwnProperties</span><span class="p">({},</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">());</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({},</span> <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">());</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Set new properties on the object with it's set() method.</p></div></div><div class="code"><div class="wrapper">            <span class="c1">//Set a property on the superclass&#39;s object ...</span>
+            <span class="nx">Klass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">());</span>
+            <span class="c1">//... and it is accessible on the subclass;</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">());</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>If a property is set on the subclass, it is not
+available in the super class</p></div></div><div class="code"><div class="wrapper">            <span class="c1">//Set a property on the subclass&#39;s object ...</span>
+            <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="c1">//... and it is not available in the superclass</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">());</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">());</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>A subclass can override properties that have been
+set on the superclass</p></div></div><div class="code"><div class="wrapper">            <span class="c1">//Override a property on the subclass&#39;s object ...</span>
+            <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+            <span class="c1">//... and not the superclass and subclass have different values for that property.</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">());</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">myObj</span><span class="p">());</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    
+    <span class="kd">function</span> <span class="nx">expectEqualOwnProperties</span><span class="p">(</span><span class="nx">obj1</span><span class="p">,</span> <span class="nx">obj2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//the obj returned from extendableObject has properties on the </span>
+        <span class="c1">//prototype which make it different from the expected matching</span>
+        <span class="c1">//object, but we don&#39;t care about the prototype, only the ownProperties.</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">obj1</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span> <span class="nx">obj2</span><span class="p">));</span>
+    <span class="p">}</span>
+
+<span class="p">});</span></div></div></div></div></body></html>
