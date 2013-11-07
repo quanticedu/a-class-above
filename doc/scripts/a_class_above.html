@@ -5,32 +5,44 @@
             <span class="kd">var</span> <span class="nx">plugins</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
             <span class="kd">var</span> <span class="nx">AClassAbove</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">create</span><span class="p">();</span>
             
-            <span class="kd">function</span> <span class="nx">extend</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
-                </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>when extend is called directly on a class, the object
-mixed in to the classMixin, which becomes an authoritative
-record of all the class properties added at this level of the hierarchy</p></div></div><div class="code"><div class="wrapper">                <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
-                </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>subExtend copies properties on subclasses, but does
-not add them to the classMixin, allowing us to keep track
-of which things have been overridden where in the hierarchy</p></div></div><div class="code"><div class="wrapper">                <span class="k">this</span><span class="p">.</span><span class="nx">subExtend</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
-                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="kd">function</span> <span class="nx">extend</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>                
+                <span class="nx">angular</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">name</span><span class="p">){</span>                                     
+                    <span class="k">this</span><span class="p">.</span><span class="nx">addInheritableProperties</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>  
+                    <span class="k">this</span><span class="p">[</span><span class="nx">name</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+                <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
             <span class="p">}</span>
             
-            <span class="kd">function</span> <span class="nx">subExtend</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
-                <span class="nx">angular</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subclasses</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">subclass</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nx">angular</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">key</span><span class="p">){</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>don't override things that have been set on a subclass
-using extend</p></div></div><div class="code"><div class="wrapper">                        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">subclass</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span> <span class="p">{</span>
-                            <span class="kd">var</span> <span class="nx">_obj</span> <span class="o">=</span> <span class="p">{};</span>
-                            <span class="nx">_obj</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
-                            <span class="nx">subclass</span><span class="p">.</span><span class="nx">subExtend</span><span class="p">(</span><span class="nx">_obj</span><span class="p">);</span>
+            <span class="kd">function</span> <span class="nx">addInheritableProperties</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">properties</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                <span class="nx">angular</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">properties</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span> <span class="p">{</span>
+                        <span class="k">return</span><span class="p">;</span>
+                    <span class="p">}</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">_inheritableClassProperties</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+                    <span class="kd">var</span> <span class="nx">localName</span> <span class="o">=</span> <span class="s1">&#39;___&#39;</span><span class="o">+</span><span class="nx">name</span><span class="p">;</span>   
+                    
+                    <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="p">{</span>
+                        <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">localName</span><span class="p">))</span> <span class="p">{</span>
+                                <span class="k">return</span> <span class="k">this</span><span class="p">[</span><span class="nx">localName</span><span class="p">];</span>
+                            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">superclass</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">superclass</span><span class="p">[</span><span class="nx">name</span><span class="p">];</span>
+                            <span class="p">}</span>
+                        <span class="p">},</span>
+                        <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span> 
+                            <span class="k">this</span><span class="p">[</span><span class="nx">localName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
                         <span class="p">}</span>
                     <span class="p">});</span>
+                <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>   
+                
+                <span class="nx">angular</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">subclasses</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">subclass</span><span class="p">){</span>
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">addInheritableProperties</span><span class="p">(</span><span class="nx">properties</span><span class="p">);</span>
                 <span class="p">});</span>
             <span class="p">}</span>
             
+            <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">_inheritableClassProperties</span> <span class="o">=</span> <span class="p">[];</span>            
             <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="nx">extend</span><span class="p">;</span>
-            <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subExtend</span> <span class="o">=</span> <span class="nx">subExtend</span><span class="p">;</span>
-            <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">addInheritableProperties</span> <span class="o">=</span> <span class="nx">addInheritableProperties</span><span class="p">;</span>
             <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
                 <span class="nx">subclass</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
                     <span class="kd">var</span> <span class="nx">initFunction</span><span class="p">;</span>
@@ -41,16 +53,10 @@ using extend</p></div></div><div class="code"><div class="wrapper">             
                     <span class="p">}</span>
                     
                     <span class="kd">var</span> <span class="nx">subclass</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
-                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span><span class="p">;</span>
-                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">subExtend</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subExtend</span><span class="p">;</span>
-                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">=</span> <span class="p">{};</span>
-                    <span class="kd">var</span> <span class="nx">klass</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-                    <span class="k">while</span><span class="p">(</span><span class="nx">klass</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="nx">subclass</span><span class="p">.</span><span class="nx">subExtend</span><span class="p">(</span><span class="nx">klass</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">);</span>
-                        <span class="nx">klass</span> <span class="o">=</span> <span class="nx">klass</span><span class="p">.</span><span class="nx">superclass</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">subExtend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">);</span>
-                    
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">extend</span> <span class="o">=</span> <span class="nx">extend</span><span class="p">;</span>
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">_inheritableClassProperties</span> <span class="o">=</span> <span class="p">[];</span>
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">addInheritableProperties</span> <span class="o">=</span> <span class="nx">addInheritableProperties</span><span class="p">;</span>
+                    <span class="nx">subclass</span><span class="p">.</span><span class="nx">addInheritableProperties</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">subclass</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">_inheritableClassProperties</span><span class="p">);</span>
                     <span class="k">if</span> <span class="p">(</span><span class="nx">initFunction</span><span class="p">)</span> <span class="p">{</span>
                         <span class="kd">var</span> <span class="nx">instanceMixin</span> <span class="o">=</span> <span class="nx">initFunction</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">subclass</span><span class="p">)</span> <span class="o">||</span> <span class="p">{};</span>
                         <span class="nx">subclass</span><span class="p">.</span><span class="nx">addMethods</span><span class="p">(</span><span class="nx">instanceMixin</span><span class="p">);</span>
