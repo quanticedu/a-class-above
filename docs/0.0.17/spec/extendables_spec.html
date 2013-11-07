@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="en"><head><title>spec/extendables_spec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="spec/extendables_spec"><meta name="groc-project-path" content="spec/extendables_spec.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">spec/extendables_spec.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;AClassAbove.ExtendableEnumerables&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">var</span> <span class="nx">Class</span><span class="p">;</span>
+
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">);</span>
+
+        <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_AClassAbove_</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">Class</span> <span class="o">=</span> <span class="nx">_AClassAbove_</span><span class="p">;</span>
+        <span class="p">});</span>
+
+    <span class="p">});</span>
+
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;extendableArray&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create an array that can be extended&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">Klass</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">extendableArray</span><span class="p">(</span><span class="s1">&#39;arr&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">SubKlass</span> <span class="o">=</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">arr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([]);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubKlass</span><span class="p">.</span><span class="nx">arr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([]);</span>
+            
+            <span class="nx">Klass</span><span class="p">.</span><span class="nx">arr</span><span class="p">().</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">arr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">]);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubKlass</span><span class="p">.</span><span class="nx">arr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">]);</span>
+            
+            <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">arr</span><span class="p">().</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">Klass</span><span class="p">.</span><span class="nx">arr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">]);</span>
+            <span class="nx">expect</span><span class="p">(</span><span class="nx">SubKlass</span><span class="p">.</span><span class="nx">arr</span><span class="p">()).</span><span class="nx">toEqual</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]);</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    
+    <span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;extendableObject&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should create an object that can be extended&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">Klass</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">extendableObject</span><span class="p">(</span><span class="s1">&#39;obj&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">SubKlass</span> <span class="o">=</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">subclass</span><span class="p">();</span>
+            
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({},</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">obj</span><span class="p">());</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({},</span> <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">obj</span><span class="p">());</span>
+            
+            <span class="nx">Klass</span><span class="p">.</span><span class="nx">obj</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">obj</span><span class="p">());</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">obj</span><span class="p">());</span>
+            
+            <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">obj</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">obj</span><span class="p">());</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">obj</span><span class="p">());</span>
+            
+            <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">obj</span><span class="p">().</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">Klass</span><span class="p">.</span><span class="nx">obj</span><span class="p">());</span>
+            <span class="nx">expectEqualOwnProperties</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span> <span class="mi">1</span><span class="p">},</span> <span class="nx">SubKlass</span><span class="p">.</span><span class="nx">obj</span><span class="p">());</span>
+        <span class="p">});</span>
+    <span class="p">});</span>
+    
+    <span class="kd">function</span> <span class="nx">expectEqualOwnProperties</span><span class="p">(</span><span class="nx">obj1</span><span class="p">,</span> <span class="nx">obj2</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>the obj returned from extendableObject has properties on the 
+prototype which make it different from the expected matching
+object, but we don't care about the prototype, only the ownProperties.</p></div></div><div class="code"><div class="wrapper">        <span class="nx">expect</span><span class="p">(</span><span class="nx">obj1</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">({},</span> <span class="nx">obj2</span><span class="p">));</span>
+    <span class="p">}</span>
+
+<span class="p">});</span></div></div></div></div></body></html>
