@@ -5,38 +5,44 @@ angular.module('AClassAbove', [])
             var plugins = Array.prototype.slice.call(arguments, 1);
             var AClassAbove = Class.create();
             
-            function extend(obj) {
-                
-                // when extend is called directly on a class, the object
-                // mixed in to the classMixin, which becomes an authoritative
-                // record of all the class properties added at this level of the hierarchy
-                angular.extend(this.classMixin, obj);
-                
-                // subExtend copies properties on subclasses, but does
-                // not add them to the classMixin, allowing us to keep track
-                // of which things have been overridden where in the hierarchy
-                this.subExtend(obj);
-                return this;
+            function extend(obj) {                
+                angular.forEach(obj, function(value, name){                                     
+                    this.addInheritableProperties(name);  
+                    this[name] = value;
+                }.bind(this));
             }
             
-            function subExtend(obj) {
-                angular.extend(this, obj);
-                angular.forEach(this.subclasses, function(subclass) {
-                    angular.forEach(obj, function(val, key){
-                        // don't override things that have been set on a subclass
-                        // using extend
-                        if (!subclass.classMixin.hasOwnProperty(key)) {
-                            var _obj = {};
-                            _obj[key] = val;
-                            subclass.subExtend(_obj);
+            function addInheritableProperties() {
+                var properties = Array.prototype.slice.call(arguments, 0);
+                angular.forEach(properties, function(name){
+                    if (this.hasOwnProperty(name)) {
+                        return;
+                    }
+                    this._inheritableClassProperties.push(name);
+                    var localName = '___'+name;   
+                    
+                    Object.defineProperty(this, name, {
+                        get: function() {
+                            if (this.hasOwnProperty(localName)) {
+                                return this[localName];
+                            } else if (this.superclass) {
+                                return this.superclass[name];
+                            }
+                        },
+                        set: function(val) { 
+                            this[localName] = val;
                         }
                     });
+                }.bind(this));   
+                
+                angular.forEach(this.subclasses, function(subclass){
+                    subclass.addInheritableProperties(properties);
                 });
             }
             
+            AClassAbove._inheritableClassProperties = [];            
             AClassAbove.extend = extend;
-            AClassAbove.subExtend = subExtend;
-            AClassAbove.classMixin = {};
+            AClassAbove.addInheritableProperties = addInheritableProperties;
             AClassAbove.extend({
                 subclass: function(options) {
                     var initFunction;
@@ -47,16 +53,10 @@ angular.module('AClassAbove', [])
                     }
                     
                     var subclass = Class.create(this, options);
-                    subclass.extend = AClassAbove.extend;
-                    subclass.subExtend = AClassAbove.subExtend;
-                    subclass.classMixin = {};
-                    var klass = this;
-                    while(klass) {
-                        subclass.subExtend(klass.classMixin);
-                        klass = klass.superclass;
-                    }
-                    subclass.subExtend(this.classMixin);
-                    
+                    subclass.extend = extend;
+                    subclass._inheritableClassProperties = [];
+                    subclass.addInheritableProperties = addInheritableProperties;
+                    subclass.addInheritableProperties.apply(subclass, this._inheritableClassProperties);
                     if (initFunction) {
                         var instanceMixin = initFunction.apply(subclass) || {};
                         subclass.addMethods(instanceMixin);

@@ -32,15 +32,15 @@ describe('AClassAbove', function() {
             myApp.factory('service', function(AClassAbove) {
                 expect(AClassAbove).not.toBeUndefined();
             });
-
+    
             inject(['service', function() {}]);
-
+    
         });
-
-
-
-
-
+    
+    
+    
+    
+    
         // Or you can inject it via bracket notation,
         // which will work with minification.
         it('should be injectable via bracket notation', function() {
@@ -49,70 +49,70 @@ describe('AClassAbove', function() {
             myApp.factory('service', ['AClassAbove', function(Class) {
                 expect(Class).not.toBeUndefined();
             }]);
-
+    
             inject(['service', function() {}]);
         });
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
     });
-
+    
     describe('subclass', function() {
         var AClassAbove;
-
+    
         beforeEach(function() {
             inject(function(_AClassAbove_) {
                 AClassAbove = _AClassAbove_;
             });
         });
-
+    
         // ### Setting instance properties with an object
         // If you just want to set instance properties on your
         // new class, then you can pass an object to subclass().
         it('should create a class from an object', function() {
             // ...
             var Klass = AClassAbove.subclass({
-
+    
                 // 'initialize' is a special property that 
                 // will be called when new instances of your
                 // class are created. 
                 initialize: function() {
                     this.wasInitialized = true;
                 },
-
+    
                 instanceProperty: 'set'
             });
             expect(Klass.superclass).toBe(AClassAbove);
             expect(new Klass().wasInitialized).toBe(true);
             expect(new Klass().instanceProperty).toBe('set');
-
+    
         });
-
-
-
-
-
+    
+    
+    
+    
+    
         // ### The $super keyword
         // If the first argument to any instance method is '$super', then
         // that argument will refer to the superclass's method.
         it('should create a subclass and support the $super keyword', function() {
             // ...
             var SuperClass = AClassAbove.subclass({
-
+    
                 initialize: function() {
                     this.log = [];
                     this.log.push('SuperClass#initialize was called.');
                 },
-
+    
                 instanceMethod: function() {
                     this.log.push('SuperClass#instanceMethod was called.');
                     return this;
                 }
             });
-
+    
             // SubClass1 calls $super inside of 'initialize' and
             // 'instanceMethod', so in both cases the superclass's 
             // method is called.
@@ -130,16 +130,16 @@ describe('AClassAbove', function() {
                     this.log.push('SubClass#instanceMethod was called.');
                     return this;
                 }
-
+    
             });
-
+    
             //verifying that the expected methods were called
             expect(new SubClass1().instanceMethod().log).toEqual([
                 'SuperClass#initialize was called.', 
                 'SubClass#initialize was called', 
                 'SuperClass#instanceMethod was called.', 
                 'SubClass#instanceMethod was called.']);
-
+    
             // SubClass2 calls $super inside of 'initialize' but not
             // 'instanceMethod', so the superclass's 'instanceMethod'
             // is never called.
@@ -156,9 +156,9 @@ describe('AClassAbove', function() {
                     this.log.push('SubClass#instanceMethod was called.');
                     return this;
                 }
-
+    
             });
-
+    
             //verifying that the expected methods were called
             expect(new SubClass2().instanceMethod().log).toEqual([
                 'SuperClass#initialize was called.', 
@@ -166,8 +166,8 @@ describe('AClassAbove', function() {
                 //SuperClass#instanceMethod was never called
                 'SubClass#instanceMethod was called.']);
         });
-
-
+    
+    
         // ### Using an initialization function to set class properties
         // If you want to add class properties or call class methods
         // on your new class, then you can pass an initialization
@@ -178,7 +178,7 @@ describe('AClassAbove', function() {
             // ...
             //passing an initialization function to subclass()
             var SuperClass = AClassAbove.subclass(function() {
-
+    
                 //Creating an inheritable class property and an inheritable
                 //class method with 'extend' (see below for more on extend).
                 this.extend({
@@ -187,34 +187,34 @@ describe('AClassAbove', function() {
                         this.aClassMethodWasCalled = true;
                     }
                 });
-
+    
                 //setting an uninheritable class property
                 this.aClassMethodWasCalled = false;
             });
-
+    
             //SuperClass has aClassProperty
             expect(SuperClass.aClassProperty).toBe('set');
             //we never called SuperClass.aClassMethod(), so aClassMethodWasCalled is false
             expect(SuperClass.aClassMethodWasCalled).toBe(false);
-
+    
             //Creating a subclass, and calling the class 
             //method that was defined in the superclass.
             var SubClass = SuperClass.subclass(function() {
                 this.aClassMethodWasCalled = false;
                 this.aClassMethod();
             });
-
+    
             //SubClass inherited aClassProperty
             expect(SubClass.aClassProperty).toBe("set");
             //We called SubClass.aClassMethod() in our initialization function, so aClassMethodWasCalled is true
             expect(SubClass.aClassMethodWasCalled).toBe(true);
-
+    
         });
-
-
-
-
-
+    
+    
+    
+    
+    
         // ### Setting class properties AND instance properties with subclass()
         // If the return value of your initialization function is
         // an object, then it will be mixed in to your class, creating
@@ -292,7 +292,7 @@ describe('AClassAbove', function() {
         // Properties set with extend will be inherited by subclasses
         it('should allow subclasses to inherit class methods', function() {
             var SuperClass = AClassAbove.subclass();
-
+        
             //If extend is called before the subclass is created, the property
             //should be inherited
             SuperClass.extend({
@@ -300,7 +300,7 @@ describe('AClassAbove', function() {
             });
             var SubClass = SuperClass.subclass();
             expect(SubClass.classProperty).toBe('classProperty');
-
+        
             //If extend is called after the subclass is created, the property
             //should still be inherited            
             SuperClass.extend({
@@ -308,7 +308,7 @@ describe('AClassAbove', function() {
             });
             expect(SubClass.anotherClassProperty).toBe('anotherClassProperty');
         });
-
+        
         // Properties set with extend can be overridden in subclasses
         it('should not override classMethods on a subclass', function() {
             var SuperClass = AClassAbove.subclass();
@@ -359,19 +359,29 @@ describe('AClassAbove', function() {
                 klass = subclass;
             }
             
+            //if it's overridden somewhere in the hierarchy, that should be passed down from there
+            klass.extend({prop: 2}); 
+            for (var i = 0; i < 5; i++) {
+                var subclass = klass.subclass();
+                expect(subclass.prop).toBe(2);
+                klass = subclass;
+            }
+            
+            expect(SuperClass.prop).toBe(1);
+            
         });
     });
 
 
     describe('include', function() {
         var AClassAbove;
-
+    
         beforeEach(function() {
             inject(function(_AClassAbove_) {
                 AClassAbove = _AClassAbove_;
             });
         });
-
+    
         // # Adding instance methods with 'include'
         // If you want to add more instance properties after calling subclass(),
         // you can use include to add an instance mixin.  This is equivalent
