@@ -61,6 +61,26 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
+            "sourcePath": "/Users/nbrustein/code/a-class-above/scripts/a_module_above.js",
+            "projectPath": "scripts/a_module_above.js",
+            "targetPath": "scripts/a_module_above",
+            "pageTitle": "scripts/a_module_above",
+            "title": "a_module_above"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
             "sourcePath": "/Users/nbrustein/code/a-class-above/scripts/extendable_enumerables.js",
             "projectPath": "scripts/extendable_enumerables.js",
             "targetPath": "scripts/extendable_enumerables",
@@ -241,6 +261,36 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "level": 1,
                 "title": "Adding instance methods with 'include'",
                 "slug": "adding-instance-methods-with-include"
+              },
+              "depth": 1
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/nbrustein/code/a-class-above/spec/a_module_above_spec.js",
+            "projectPath": "spec/a_module_above_spec.js",
+            "targetPath": "spec/a_module_above_spec",
+            "pageTitle": "spec/a_module_above_spec",
+            "title": "a_module_above_spec"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "AModuleAbove",
+                "slug": "amoduleabove"
               },
               "depth": 1
             }
