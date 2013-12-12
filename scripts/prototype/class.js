@@ -90,7 +90,7 @@ angular.module('AClassAbove')
     .factory('Prototype.Class', ['Prototype.Array', 'Prototype.Object',
         function($A, Object) {
             // a few tweaks that we need to add to get this working outside of the prototype world
-            Prototype = {
+            var Prototype = {
                 emptyFunction: function() {}
             };
 
