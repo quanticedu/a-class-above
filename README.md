@@ -15,7 +15,7 @@ From the bower.json file
     {
 	    "...
 	    "dependencies": {
-	        "a-class-above": "0.0.18"
+	        "a-class-above": "0.0.19"
 	    },
 		...
 	}
