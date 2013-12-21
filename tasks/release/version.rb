@@ -95,7 +95,7 @@ Dir.mktmpdir do |tmpdir|
     f.write(head)
     f.write("#{header}\n\n")
     versions.each do |_version|
-      f.write("[#{_version}](http://www.pedago.com/a-class-above/docs/#{_version})  \n")
+      f.write("[#{_version}](http://pedago.github.io/a-class-above/docs/#{_version})  \n")
     end
   end
   
