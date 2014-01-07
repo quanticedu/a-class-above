@@ -52,10 +52,9 @@ Dir.mktmpdir do |tmpdir|
   
   # fetch all branches
   out, err = run("git fetch origin", false)
-  debugger
-  unless err.match(/new tag/)
-      raise err
-  end
+  if err != "" && !err.match(/new tag/)
+      raise RuntimeError.new(err)
+    end
   
   # switch to gh-pages branch
   out, err = run("git checkout -b gh-pages origin/gh-pages", false)
