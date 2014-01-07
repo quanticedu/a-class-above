@@ -51,6 +51,7 @@ Dir.mktmpdir do |tmpdir|
   
   # fetch all branches
   out, err = run("git fetch origin", false)
+  debugger
   unless err.match(/new tag/)
       raise err
   end
