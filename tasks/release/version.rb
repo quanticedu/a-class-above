@@ -50,7 +50,10 @@ Dir.mktmpdir do |tmpdir|
   FileUtils.cp_r('doc', tmp_doc_dir)
   
   # fetch all branches
-  run("git fetch origin")
+  out, err = run("git fetch origin", false)
+  unless err.match(/new tag/)
+      raise err
+  end
   
   # switch to gh-pages branch
   out, err = run("git checkout -b gh-pages origin/gh-pages", false)
