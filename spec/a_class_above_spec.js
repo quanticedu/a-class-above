@@ -395,4 +395,53 @@ describe('AClassAbove', function() {
             expect(Klass.prototype.a).toBe(1);
         });
     });
+    
+    
+    describe('isA', function() {
+        var AClassAbove;
+    
+        beforeEach(function() {
+            inject(function(_AClassAbove_) {
+                AClassAbove = _AClassAbove_;
+            });
+        });
+    
+        // # isA (instance method)
+        // returns true if the instance's constructor is the
+        // provided class, or if any of the constructor's ancestors
+        // are
+        it('should indicate whether or not an object is an instance of a class', function() {
+            // ...
+            var Klass = AClassAbove.subclass();
+            var SubKlass = Klass.subclass();
+            var AnotherKlass = AClassAbove.subclass();
+            expect(new SubKlass().isA(SubKlass)).toBe(true);
+            expect(new SubKlass().isA(Klass)).toBe(true);
+            expect(new SubKlass().isA(AnotherKlass)).toBe(false);
+        });
+    });
+    
+    describe('inheritsFrom', function() {
+        var AClassAbove;
+    
+        beforeEach(function() {
+            inject(function(_AClassAbove_) {
+                AClassAbove = _AClassAbove_;
+            });
+        });
+    
+        // # inheritsFrom (classMethod)
+        // returns true if the class is the
+        // provided class, or if any of the class's ancestors
+        // are
+        it('should indicate whether or not a class inherits from another class', function() {
+            // ...
+            var Klass = AClassAbove.subclass();
+            var SubKlass = Klass.subclass();
+            var AnotherKlass = AClassAbove.subclass();
+            expect(SubKlass.inheritsFrom(SubKlass)).toBe(true);
+            expect(SubKlass.inheritsFrom(Klass)).toBe(true);
+            expect(SubKlass.inheritsFrom(AnotherKlass)).toBe(false);
+        });
+    });
 });

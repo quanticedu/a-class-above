@@ -1,7 +1,11 @@
 angular.module('AClassAbove', [])
 .provider('AClassAbove', function(){
         
-        this.$get = ['Prototype.Class', 'AClassAbove.ExtendableEnumerables', function(Class, Extendables) {
+        this.$get = [
+            'Prototype.Class', 
+            'AClassAbove.ExtendableEnumerables', 
+            'AClassAbove.Convenience',
+        function(Class, Extendables) {
             var plugins = Array.prototype.slice.call(arguments, 1);
             var AClassAbove = Class.create();
             
@@ -43,6 +47,7 @@ angular.module('AClassAbove', [])
             AClassAbove._inheritableClassProperties = [];            
             AClassAbove.extend = extend;
             AClassAbove.addInheritableProperties = addInheritableProperties;
+            AClassAbove.ancestors = [];
             AClassAbove.extend({
                 subclass: function(options) {
                     var initFunction;
@@ -57,6 +62,7 @@ angular.module('AClassAbove', [])
                     subclass._inheritableClassProperties = [];
                     subclass.addInheritableProperties = addInheritableProperties;
                     subclass.addInheritableProperties.apply(subclass, this._inheritableClassProperties);
+                    subclass.ancestors = this.ancestors.concat([this]);
                     if (initFunction) {
                         var instanceMixin = initFunction.apply(subclass) || {};
                         subclass.addMethods(instanceMixin);
