@@ -1,0 +1,392 @@
+<!DOCTYPE html><html lang="en"><head><title>spec/a_class_above_spec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="spec/a_class_above_spec"><meta name="groc-project-path" content="spec/a_class_above_spec.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">spec/a_class_above_spec.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span>;
+
+describe(<span class="hljs-string">'AClassAbove'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+
+    <span class="hljs-keyword">var</span> myApp, _AClassAbove, $injector;
+
+    beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        module(<span class="hljs-string">'AClassAbove'</span>);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="adding-aclassabove-to-your-app">Adding AClassAbove to your app</h3>
+<p>The name of the module is &#39;AClassAbove&#39;.
+You must add it to your app as a dependency.</p></div></div><div class="code"><div class="wrapper">        <span class="hljs-comment">//Adding AClassAbove to your app</span>
+        myApp = angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'AClassAbove'</span>]);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">        module(<span class="hljs-string">'myApp'</span>);
+    });
+
+
+
+
+
+
+    describe(<span class="hljs-string">'dependency injection'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="injecting-aclassabove-into-a-service">Injecting AClassAbove into a service</h3>
+<p>The name of the service is also &#39;AClassAbove&#39;.
+You can inject it by including it as an argument to
+a service in your app.</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should be injectable as an argument'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-comment">//Injecting AClassAbove as an argument to a factory</span>
+            myApp.factory(<span class="hljs-string">'service'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(AClassAbove)</span> {</span>
+                expect(AClassAbove).not.toBeUndefined();
+            });
+    
+            inject([<span class="hljs-string">'service'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>}]);
+    
+        });
+    
+    
+    
+    
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Or you can inject it via bracket notation,
+which will work with minification.</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should be injectable via bracket notation'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-comment">//Injecting AClassAbove with bracket notation</span>
+            myApp.factory(<span class="hljs-string">'service'</span>, [<span class="hljs-string">'AClassAbove'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(Class)</span> {</span>
+                expect(Class).not.toBeUndefined();
+            }]);
+    
+            inject([<span class="hljs-string">'service'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>}]);
+        });
+    
+    
+    
+    
+    
+    
+    });
+    
+    describe(<span class="hljs-string">'subclass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> AClassAbove;
+    
+        beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            inject(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(_AClassAbove_)</span> {</span>
+                AClassAbove = _AClassAbove_;
+            });
+        });
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="setting-instance-properties-with-an-object">Setting instance properties with an object</h3>
+<p>If you just want to set instance properties on your
+new class, then you can pass an object to subclass().</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should create a class from an object'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> Klass = AClassAbove.subclass({
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>&#39;initialize&#39; is a special property that 
+will be called when new instances of your
+class are created. </p></div></div><div class="code"><div class="wrapper">                initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">this</span>.wasInitialized = <span class="hljs-literal">true</span>;
+                },
+    
+                instanceProperty: <span class="hljs-string">'set'</span>
+            });
+            expect(Klass.superclass).toBe(AClassAbove);
+            expect(<span class="hljs-keyword">new</span> Klass().wasInitialized).toBe(<span class="hljs-literal">true</span>);
+            expect(<span class="hljs-keyword">new</span> Klass().instanceProperty).toBe(<span class="hljs-string">'set'</span>);
+    
+        });
+    
+    
+    
+    
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="the-super-keyword">The $super keyword</h3>
+<p>If the first argument to any instance method is &#39;$super&#39;, then
+that argument will refer to the superclass&#39;s method.</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should create a subclass and support the $super keyword'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> SuperClass = AClassAbove.subclass({
+    
+                initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">this</span>.log = [];
+                    <span class="hljs-keyword">this</span>.log.push(<span class="hljs-string">'SuperClass#initialize was called.'</span>);
+                },
+    
+                instanceMethod: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">this</span>.log.push(<span class="hljs-string">'SuperClass#instanceMethod was called.'</span>);
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+                }
+            });
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>SubClass1 calls $super inside of &#39;initialize&#39; and
+&#39;instanceMethod&#39;, so in both cases the superclass&#39;s 
+method is called.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> SubClass1 = SuperClass.subclass({
+                
+                initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($super)</span> {</span>
+                    <span class="hljs-comment">//calling the superclass's initialize</span>
+                    $super();
+                    <span class="hljs-keyword">this</span>.log.push(<span class="hljs-string">'SubClass#initialize was called'</span>);
+                },
+                
+                instanceMethod: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($super)</span> {</span>
+                    <span class="hljs-comment">//calling the superclass's instanceMethod</span>
+                    $super();
+                    <span class="hljs-keyword">this</span>.log.push(<span class="hljs-string">'SubClass#instanceMethod was called.'</span>);
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+                }
+    
+            });
+    
+            <span class="hljs-comment">//verifying that the expected methods were called</span>
+            expect(<span class="hljs-keyword">new</span> SubClass1().instanceMethod().log).toEqual([
+                <span class="hljs-string">'SuperClass#initialize was called.'</span>, 
+                <span class="hljs-string">'SubClass#initialize was called'</span>, 
+                <span class="hljs-string">'SuperClass#instanceMethod was called.'</span>, 
+                <span class="hljs-string">'SubClass#instanceMethod was called.'</span>]);
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>SubClass2 calls $super inside of &#39;initialize&#39; but not
+&#39;instanceMethod&#39;, so the superclass&#39;s &#39;instanceMethod&#39;
+is never called.</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> SubClass2 = SuperClass.subclass({
+                
+                initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($super)</span> {</span>
+                    <span class="hljs-comment">//calling the superclass's initialize</span>
+                    $super();
+                    <span class="hljs-keyword">this</span>.log.push(<span class="hljs-string">'SubClass#initialize was called'</span>);
+                },
+                
+                instanceMethod: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($super)</span> {</span>
+                    <span class="hljs-comment">//NOT calling the superclass's instanceMethod</span>
+                    <span class="hljs-keyword">this</span>.log.push(<span class="hljs-string">'SubClass#instanceMethod was called.'</span>);
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+                }
+    
+            });
+    
+            <span class="hljs-comment">//verifying that the expected methods were called</span>
+            expect(<span class="hljs-keyword">new</span> SubClass2().instanceMethod().log).toEqual([
+                <span class="hljs-string">'SuperClass#initialize was called.'</span>, 
+                <span class="hljs-string">'SubClass#initialize was called'</span>,
+                <span class="hljs-comment">//SuperClass#instanceMethod was never called</span>
+                <span class="hljs-string">'SubClass#instanceMethod was called.'</span>]);
+        });
+    
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="using-an-initialization-function-to-set-class-properties">Using an initialization function to set class properties</h3>
+<p>If you want to add class properties or call class methods
+on your new class, then you can pass an initialization
+function to subclass().  The initialization function is
+called in the context of your new class, so use &quot;this&quot;
+to access the class inside of the initialization function.</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should support an initialization function, and call it in the context of the new class'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-comment">//passing an initialization function to subclass()</span>
+            <span class="hljs-keyword">var</span> SuperClass = AClassAbove.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    
+                <span class="hljs-comment">//Creating an inheritable class property and an inheritable</span>
+                <span class="hljs-comment">//class method with 'extend' (see below for more on extend).</span>
+                <span class="hljs-keyword">this</span>.extend({
+                    aClassProperty: <span class="hljs-string">'set'</span>,
+                    aClassMethod: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        <span class="hljs-keyword">this</span>.aClassMethodWasCalled = <span class="hljs-literal">true</span>;
+                    }
+                });
+    
+                <span class="hljs-comment">//setting an uninheritable class property</span>
+                <span class="hljs-keyword">this</span>.aClassMethodWasCalled = <span class="hljs-literal">false</span>;
+            });
+    
+            <span class="hljs-comment">//SuperClass has aClassProperty</span>
+            expect(SuperClass.aClassProperty).toBe(<span class="hljs-string">'set'</span>);
+            <span class="hljs-comment">//we never called SuperClass.aClassMethod(), so aClassMethodWasCalled is false</span>
+            expect(SuperClass.aClassMethodWasCalled).toBe(<span class="hljs-literal">false</span>);
+    
+            <span class="hljs-comment">//Creating a subclass, and calling the class </span>
+            <span class="hljs-comment">//method that was defined in the superclass.</span>
+            <span class="hljs-keyword">var</span> SubClass = SuperClass.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">this</span>.aClassMethodWasCalled = <span class="hljs-literal">false</span>;
+                <span class="hljs-keyword">this</span>.aClassMethod();
+            });
+    
+            <span class="hljs-comment">//SubClass inherited aClassProperty</span>
+            expect(SubClass.aClassProperty).toBe(<span class="hljs-string">"set"</span>);
+            <span class="hljs-comment">//We called SubClass.aClassMethod() in our initialization function, so aClassMethodWasCalled is true</span>
+            expect(SubClass.aClassMethodWasCalled).toBe(<span class="hljs-literal">true</span>);
+    
+        });
+    
+    
+    
+    
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="setting-class-properties-and-instance-properties-with-subclass">Setting class properties AND instance properties with subclass()</h3>
+<p>If the return value of your initialization function is
+an object, then it will be mixed in to your class, creating
+instance properties.</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should create a subclass from an initialization function'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> Klass = AClassAbove.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">this</span>.classProp = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">return</span> {
+                    instanceProp: <span class="hljs-literal">true</span>
+                };
+            });
+            expect(Klass.classProp).toBe(<span class="hljs-literal">true</span>);
+            expect(<span class="hljs-keyword">new</span> Klass().instanceProp).toBe(<span class="hljs-literal">true</span>);
+        });
+        
+        it(<span class="hljs-string">'should work with an initialization function and $super'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> called = [];
+            <span class="hljs-keyword">var</span> SuperClass = AClassAbove.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> {
+                    initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        called.push(<span class="hljs-string">'SuperClass#init'</span>);
+                    },
+                    meth: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        called.push(<span class="hljs-string">'SuperClass#meth'</span>);
+                    }
+                }
+            });
+            
+            <span class="hljs-keyword">var</span> SubClass = SuperClass.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">return</span> {
+                    initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($super)</span> {</span>
+                        $super();
+                        called.push(<span class="hljs-string">'SubClass#init'</span>);
+                    },
+                    meth: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($super)</span> {</span>
+                        $super();
+                        called.push(<span class="hljs-string">'SubClass#meth'</span>);
+                    }
+                }
+            });
+            
+            <span class="hljs-keyword">new</span> SubClass().meth();
+            expect(called).toEqual([
+                <span class="hljs-string">'SuperClass#init'</span>,
+                <span class="hljs-string">'SubClass#init'</span>,
+                <span class="hljs-string">'SuperClass#meth'</span>,
+                <span class="hljs-string">'SubClass#meth'</span>
+            ]);
+        });
+    });
+
+
+    describe(<span class="hljs-string">'extend'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> AClassAbove;
+
+        beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            inject(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(_AClassAbove_)</span> {</span>
+                AClassAbove = _AClassAbove_;
+            });
+        });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="creating-inheritable-class-properties-with-39extend39">Creating inheritable class properties with &#39;extend&#39;.</h3>
+<p>The &#39;extend&#39; class method takes an object that will be 
+mixed in at the class level and inherited by all subclasses.</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should add classMethods'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> Klass = AClassAbove.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">this</span>.extend({
+                    classProperty: <span class="hljs-string">'classProperty'</span>
+                });
+            });
+            expect(Klass.classProperty).toBe(<span class="hljs-string">'classProperty'</span>);
+        });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Properties set with extend will be inherited by subclasses</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should allow subclasses to inherit class methods'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> SuperClass = AClassAbove.subclass();
+        
+            <span class="hljs-comment">//If extend is called before the subclass is created, the property</span>
+            <span class="hljs-comment">//should be inherited</span>
+            SuperClass.extend({
+                classProperty: <span class="hljs-string">'classProperty'</span>
+            });
+            <span class="hljs-keyword">var</span> SubClass = SuperClass.subclass();
+            expect(SubClass.classProperty).toBe(<span class="hljs-string">'classProperty'</span>);
+        
+            <span class="hljs-comment">//If extend is called after the subclass is created, the property</span>
+            <span class="hljs-comment">//should still be inherited            </span>
+            SuperClass.extend({
+                anotherClassProperty: <span class="hljs-string">'anotherClassProperty'</span>
+            });
+            expect(SubClass.anotherClassProperty).toBe(<span class="hljs-string">'anotherClassProperty'</span>);
+        });
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Properties set with extend can be overridden in subclasses</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should not override classMethods on a subclass'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> SuperClass = AClassAbove.subclass();
+            <span class="hljs-keyword">var</span> SubClass = SuperClass.subclass();
+            
+            SubClass.extend({
+                classProperty: <span class="hljs-string">'setOnSub'</span>
+            });
+            
+            <span class="hljs-comment">//When the superclass calls extend, it should not</span>
+            <span class="hljs-comment">//override the value that has already been set on the </span>
+            <span class="hljs-comment">//subclass.</span>
+            SuperClass.extend({
+                classProperty: <span class="hljs-string">'setOnSuper'</span>
+            });
+            expect(SubClass.classProperty).toBe(<span class="hljs-string">'setOnSub'</span>);
+        });
+        
+        it(<span class="hljs-string">'should override methods previously set with extend'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> SuperClass = AClassAbove.subclass();
+            <span class="hljs-keyword">var</span> SubClass = SuperClass.subclass();
+            
+            SuperClass.extend({prop: <span class="hljs-number">1</span>});
+            SuperClass.extend({prop: <span class="hljs-number">2</span>});
+            expect(SuperClass.prop).toBe(<span class="hljs-number">2</span>);
+            expect(SubClass.prop).toBe(<span class="hljs-number">2</span>);
+            
+        });
+        
+        it(<span class="hljs-string">'should override methods previously set with extend in a different order'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> SuperClass = AClassAbove.subclass();
+            SuperClass.extend({prop: <span class="hljs-number">1</span>});
+            <span class="hljs-keyword">var</span> SubClass = SuperClass.subclass();            
+            SuperClass.extend({prop: <span class="hljs-number">2</span>});                        
+            
+            expect(SuperClass.prop).toBe(<span class="hljs-number">2</span>);
+            expect(SubClass.prop).toBe(<span class="hljs-number">2</span>);
+            
+        });
+        
+        it(<span class="hljs-string">'should pass class methods all the way down the hierarchy'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            <span class="hljs-keyword">var</span> SuperClass = AClassAbove.subclass();
+            SuperClass.extend({prop: <span class="hljs-number">1</span>});
+            <span class="hljs-keyword">var</span> klass = SuperClass;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) {
+                <span class="hljs-keyword">var</span> subclass = klass.subclass();
+                expect(subclass.prop).toBe(<span class="hljs-number">1</span>);
+                klass = subclass;
+            }
+            
+            <span class="hljs-comment">//if it's overridden somewhere in the hierarchy, that should be passed down from there</span>
+            klass.extend({prop: <span class="hljs-number">2</span>}); 
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) {
+                <span class="hljs-keyword">var</span> subclass = klass.subclass();
+                expect(subclass.prop).toBe(<span class="hljs-number">2</span>);
+                klass = subclass;
+            }
+            
+            expect(SuperClass.prop).toBe(<span class="hljs-number">1</span>);
+            
+        });
+    });
+
+
+    describe(<span class="hljs-string">'include'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> AClassAbove;
+    
+        beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            inject(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(_AClassAbove_)</span> {</span>
+                AClassAbove = _AClassAbove_;
+            });
+        });
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="adding-instance-methods-with-39include39">Adding instance methods with &#39;include&#39;</h1>
+<p>If you want to add more instance properties after calling subclass(),
+you can use include to add an instance mixin.  This is equivalent
+to just adding the properties onto the prototype of the class.</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should add onto prototype'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> Klass = AClassAbove.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>});
+            Klass.include({
+                a: <span class="hljs-number">1</span>
+            });
+            expect(Klass.prototype.a).toBe(<span class="hljs-number">1</span>);
+        });
+    });
+    
+    
+    describe(<span class="hljs-string">'isA'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> AClassAbove;
+    
+        beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            inject(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(_AClassAbove_)</span> {</span>
+                AClassAbove = _AClassAbove_;
+            });
+        });
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="isa-instance-method">isA (instance method)</h1>
+<p>returns true if the instance&#39;s constructor is the
+provided class, or if any of the constructor&#39;s ancestors
+are</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should indicate whether or not an object is an instance of a class'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> Klass = AClassAbove.subclass();
+            <span class="hljs-keyword">var</span> SubKlass = Klass.subclass();
+            <span class="hljs-keyword">var</span> AnotherKlass = AClassAbove.subclass();
+            expect(<span class="hljs-keyword">new</span> SubKlass().isA(SubKlass)).toBe(<span class="hljs-literal">true</span>);
+            expect(<span class="hljs-keyword">new</span> SubKlass().isA(Klass)).toBe(<span class="hljs-literal">true</span>);
+            expect(<span class="hljs-keyword">new</span> SubKlass().isA(AnotherKlass)).toBe(<span class="hljs-literal">false</span>);
+        });
+    });
+    
+    describe(<span class="hljs-string">'inheritsFrom'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+        <span class="hljs-keyword">var</span> AClassAbove;
+    
+        beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+            inject(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(_AClassAbove_)</span> {</span>
+                AClassAbove = _AClassAbove_;
+            });
+        });
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="inheritsfrom-classmethod">inheritsFrom (classMethod)</h1>
+<p>returns true if the class is the
+provided class, or if any of the class&#39;s ancestors
+are</p></div></div><div class="code"><div class="wrapper">        it(<span class="hljs-string">'should indicate whether or not a class inherits from another class'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>...</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> Klass = AClassAbove.subclass();
+            <span class="hljs-keyword">var</span> SubKlass = Klass.subclass();
+            <span class="hljs-keyword">var</span> AnotherKlass = AClassAbove.subclass();
+            expect(SubKlass.inheritsFrom(SubKlass)).toBe(<span class="hljs-literal">true</span>);
+            expect(SubKlass.inheritsFrom(Klass)).toBe(<span class="hljs-literal">true</span>);
+            expect(SubKlass.inheritsFrom(AnotherKlass)).toBe(<span class="hljs-literal">false</span>);
+        });
+    });
+});</div></div></div></div></body></html>

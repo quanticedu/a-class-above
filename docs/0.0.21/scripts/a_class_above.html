@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><title>scripts/a_class_above</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="scripts/a_class_above"><meta name="groc-project-path" content="scripts/a_class_above.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/a_class_above.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">angular.module(<span class="hljs-string">'AClassAbove'</span>, [])
+.provider(<span class="hljs-string">'AClassAbove'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        
+        <span class="hljs-keyword">this</span>.$get = [
+            <span class="hljs-string">'Prototype.Class'</span>, 
+            <span class="hljs-string">'AClassAbove.ExtendableEnumerables'</span>, 
+            <span class="hljs-string">'AClassAbove.Convenience'</span>,
+        <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(Class, Extendables)</span> {</span>
+            <span class="hljs-keyword">var</span> plugins = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">var</span> AClassAbove = Class.create();
+            
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extend</span><span class="hljs-params">(obj)</span> {</span>                
+                angular.forEach(obj, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(value, name)</span>{</span>                                     
+                    <span class="hljs-keyword">this</span>.addInheritableProperties(name);  
+                    <span class="hljs-keyword">this</span>[name] = value;
+                }.bind(<span class="hljs-keyword">this</span>));
+            }
+            
+            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addInheritableProperties</span><span class="hljs-params">()</span> {</span>
+                <span class="hljs-keyword">var</span> properties = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>, <span class="hljs-number">0</span>);
+                angular.forEach(properties, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(name)</span>{</span>
+                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hasOwnProperty(name)) {
+                        <span class="hljs-keyword">return</span>;
+                    }
+                    <span class="hljs-keyword">this</span>._inheritableClassProperties.push(name);
+                    <span class="hljs-keyword">var</span> localName = <span class="hljs-string">'___'</span>+name;   
+                    
+                    <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-keyword">this</span>, name, {
+                        get: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                            <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.hasOwnProperty(localName)) {
+                                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[localName];
+                            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.superclass) {
+                                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.superclass[name];
+                            }
+                        },
+                        set: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(val)</span> {</span> 
+                            <span class="hljs-keyword">this</span>[localName] = val;
+                        }
+                    });
+                }.bind(<span class="hljs-keyword">this</span>));   
+                
+                angular.forEach(<span class="hljs-keyword">this</span>.subclasses, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(subclass)</span>{</span>
+                    subclass.addInheritableProperties(properties);
+                });
+            }
+            
+            AClassAbove._inheritableClassProperties = [];            
+            AClassAbove.extend = extend;
+            AClassAbove.addInheritableProperties = addInheritableProperties;
+            AClassAbove.ancestors = [];
+            AClassAbove.extend({
+                subclass: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> {</span>
+                    <span class="hljs-keyword">var</span> initFunction;
+                    <span class="hljs-keyword">if</span> (!options) options = {};
+                    <span class="hljs-keyword">if</span> (options.constructor == <span class="hljs-built_in">Function</span>) {
+                        initFunction = options;
+                        options = {};
+                    }
+                    
+                    <span class="hljs-keyword">var</span> subclass = Class.create(<span class="hljs-keyword">this</span>, options);
+                    subclass.extend = extend;
+                    subclass._inheritableClassProperties = [];
+                    subclass.addInheritableProperties = addInheritableProperties;
+                    subclass.addInheritableProperties.apply(subclass, <span class="hljs-keyword">this</span>._inheritableClassProperties);
+                    subclass.ancestors = <span class="hljs-keyword">this</span>.ancestors.concat([<span class="hljs-keyword">this</span>]);
+                    <span class="hljs-keyword">if</span> (initFunction) {
+                        <span class="hljs-keyword">var</span> instanceMixin = initFunction.apply(subclass) || {};
+                        subclass.addMethods(instanceMixin);
+                    }
+                    
+                    <span class="hljs-keyword">return</span> subclass;
+                },
+                
+                include: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> {</span>
+                    <span class="hljs-keyword">this</span>.addMethods(options);
+                }
+            });
+            
+            angular.forEach(plugins, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(mixins)</span>{</span>
+                AClassAbove.extend(mixins.classMixin || {});
+                AClassAbove.include(mixins.instanceMixin || {});
+            }.bind(<span class="hljs-keyword">this</span>));
+            
+            <span class="hljs-keyword">return</span> angular.extend(AClassAbove, AClassAbove.classMixin);
+            
+        }];
+        
+    });</div></div></div></div></body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><title>scripts/extendable_enumerables</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="scripts/extendable_enumerables"><meta name="groc-project-path" content="scripts/extendable_enumerables.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/extendable_enumerables.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">angular.module(<span class="hljs-string">'AClassAbove'</span>)
+.factory(<span class="hljs-string">'AClassAbove.ExtendableEnumerables'</span>, [<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
+        
+        <span class="hljs-keyword">return</span> {
+            
+            classMixin: {
+                extendableArray: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(name)</span> {</span>                    
+                    <span class="hljs-keyword">var</span> localName = <span class="hljs-string">"_local_"</span>+name;
+                    <span class="hljs-keyword">var</span> obj = {};
+                    obj[name] = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.hasOwnProperty(localName)) {
+                            <span class="hljs-keyword">this</span>[localName] = [];
+                        }
+                        <span class="hljs-keyword">var</span> val = [];
+                        <span class="hljs-keyword">var</span> local = <span class="hljs-keyword">this</span>[localName];
+                                             
+                        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.superclass &amp;&amp; <span class="hljs-keyword">this</span>.superclass[name]) {
+                            <span class="hljs-keyword">var</span> superVal = <span class="hljs-keyword">this</span>.superclass[name]();
+                            val = val.concat(superVal);
+                        }
+                        
+                        val = val.concat(local);
+                        val.push = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                            local.push.apply(local, <span class="hljs-built_in">arguments</span>);
+                        };
+                        <span class="hljs-keyword">return</span> val;
+                    }
+                    
+                    <span class="hljs-keyword">this</span>.extend(obj);
+                },
+                
+                extendableObject: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(name)</span> {</span>                    
+                    <span class="hljs-keyword">var</span> localName = <span class="hljs-string">"_local_"</span>+name;
+                    <span class="hljs-keyword">var</span> obj = {};
+                    obj[name] = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.hasOwnProperty(localName)) {
+                            <span class="hljs-keyword">this</span>[localName] = {};
+                        }
+                        <span class="hljs-keyword">var</span> val = <span class="hljs-built_in">Object</span>.create({
+                            set: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(name, value)</span> {</span>
+                                local[name] = value;
+                            }
+                        });
+                        <span class="hljs-keyword">var</span> local = <span class="hljs-keyword">this</span>[localName];
+                                             
+                        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.superclass &amp;&amp; <span class="hljs-keyword">this</span>.superclass[name]) {
+                            <span class="hljs-keyword">var</span> superVal = <span class="hljs-keyword">this</span>.superclass[name]();
+                            angular.extend(val, superVal);
+                        }
+                        
+                        val = angular.extend(val, local);
+                        <span class="hljs-keyword">return</span> val;
+                    }
+                    
+                    <span class="hljs-keyword">this</span>.extend(obj);
+                },
+            }
+        };
+        
+    }]);</div></div></div></div></body></html>
