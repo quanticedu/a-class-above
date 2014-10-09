@@ -9,11 +9,11 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       "type": "file",
       "data": {
         "language": {
-          "nameMatchers": [".md"],
+          "nameMatchers": [".md", ".markdown", ".mkd", ".mkdn", ".mdown"],
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/Users/brent/Pedago/a-class-above/doc.md",
+        "sourcePath": "/Users/brent/Development/Pedago/a-class-above/doc.md",
         "projectPath": "doc.md",
         "targetPath": "index",
         "pageTitle": "index",
@@ -41,7 +41,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/brent/Pedago/a-class-above/scripts/a_class_above.js",
+            "sourcePath": "/Users/brent/Development/Pedago/a-class-above/scripts/a_class_above.js",
             "projectPath": "scripts/a_class_above.js",
             "targetPath": "scripts/a_class_above",
             "pageTitle": "scripts/a_class_above",
@@ -61,7 +61,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/brent/Pedago/a-class-above/scripts/a_module_above.js",
+            "sourcePath": "/Users/brent/Development/Pedago/a-class-above/scripts/a_module_above.js",
             "projectPath": "scripts/a_module_above.js",
             "targetPath": "scripts/a_module_above",
             "pageTitle": "scripts/a_module_above",
@@ -81,7 +81,27 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/brent/Pedago/a-class-above/scripts/extendable_enumerables.js",
+            "sourcePath": "/Users/brent/Development/Pedago/a-class-above/scripts/convenience.js",
+            "projectPath": "scripts/convenience.js",
+            "targetPath": "scripts/convenience",
+            "pageTitle": "scripts/convenience",
+            "title": "convenience"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/brent/Development/Pedago/a-class-above/scripts/extendable_enumerables.js",
             "projectPath": "scripts/extendable_enumerables.js",
             "targetPath": "scripts/extendable_enumerables",
             "pageTitle": "scripts/extendable_enumerables",
@@ -109,7 +129,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "JavaScript"
                 },
-                "sourcePath": "/Users/brent/Pedago/a-class-above/scripts/prototype/array.js",
+                "sourcePath": "/Users/brent/Development/Pedago/a-class-above/scripts/prototype/array.js",
                 "projectPath": "scripts/prototype/array.js",
                 "targetPath": "scripts/prototype/array",
                 "pageTitle": "scripts/prototype/array",
@@ -129,14 +149,40 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "JavaScript"
                 },
-                "sourcePath": "/Users/brent/Pedago/a-class-above/scripts/prototype/class.js",
+                "sourcePath": "/Users/brent/Development/Pedago/a-class-above/scripts/prototype/class.js",
                 "projectPath": "scripts/prototype/class.js",
                 "targetPath": "scripts/prototype/class",
                 "pageTitle": "scripts/prototype/class",
                 "title": "class"
               },
               "depth": 3,
-              "outline": []
+              "outline": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Example",
+                    "slug": "example"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }
+              ]
             }, {
               "type": "file",
               "data": {
@@ -149,7 +195,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "JavaScript"
                 },
-                "sourcePath": "/Users/brent/Pedago/a-class-above/scripts/prototype/object.js",
+                "sourcePath": "/Users/brent/Development/Pedago/a-class-above/scripts/prototype/object.js",
                 "projectPath": "scripts/prototype/object.js",
                 "targetPath": "scripts/prototype/object",
                 "pageTitle": "scripts/prototype/object",
@@ -158,6 +204,118 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 3,
               "outline": [
                 {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Example",
+                    "slug": "example"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
                   "type": "heading",
                   "data": {
                     "level": 5,
@@ -191,7 +349,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/brent/Pedago/a-class-above/spec/a_class_above_spec.js",
+            "sourcePath": "/Users/brent/Development/Pedago/a-class-above/spec/a_class_above_spec.js",
             "projectPath": "spec/a_class_above_spec.js",
             "targetPath": "spec/a_class_above_spec",
             "pageTitle": "spec/a_class_above_spec",
@@ -251,16 +409,32 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Creating inheritable class properties with 'extend'.",
-                "slug": "creating-inheritable-class-properties-with-extend"
+                "title": "Creating inheritable class properties with &#39;extend&#39;.",
+                "slug": "creating-inheritable-class-properties-with-39extend39"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 1,
-                "title": "Adding instance methods with 'include'",
-                "slug": "adding-instance-methods-with-include"
+                "title": "Adding instance methods with &#39;include&#39;",
+                "slug": "adding-instance-methods-with-39include39"
+              },
+              "depth": 1
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "isA (instance method)",
+                "slug": "isa-instance-method"
+              },
+              "depth": 1
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "inheritsFrom (classMethod)",
+                "slug": "inheritsfrom-classmethod"
               },
               "depth": 1
             }
@@ -277,7 +451,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/brent/Pedago/a-class-above/spec/a_module_above_spec.js",
+            "sourcePath": "/Users/brent/Development/Pedago/a-class-above/spec/a_module_above_spec.js",
             "projectPath": "spec/a_module_above_spec.js",
             "targetPath": "spec/a_module_above_spec",
             "pageTitle": "spec/a_module_above_spec",
@@ -307,7 +481,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/Users/brent/Pedago/a-class-above/spec/extendable_enumerables_spec.js",
+            "sourcePath": "/Users/brent/Development/Pedago/a-class-above/spec/extendable_enumerables_spec.js",
             "projectPath": "spec/extendable_enumerables_spec.js",
             "targetPath": "spec/extendable_enumerables_spec",
             "pageTitle": "spec/extendable_enumerables_spec",

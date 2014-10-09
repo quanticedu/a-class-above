@@ -9,7 +9,7 @@ require 'rubygems'
 require 'tmpdir'
 require 'fileutils'
 require 'open3'
-require 'ruby-debug'
+# require 'ruby-debug'
 
 unless File.exists?('bower.json') && File.exists?('Gruntfile.js')
   raise "release/docs must be run from package root"

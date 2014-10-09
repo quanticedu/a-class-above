@@ -1,603 +1,520 @@
-<!DOCTYPE html><html lang="en"><head><title>scripts/prototype/object</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="scripts/prototype/object"><meta name="groc-project-path" content="scripts/prototype/object.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/prototype/object.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;Prototype.Object&#39;</span><span class="p">,</span> <span class="p">[</span>
-        <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<!DOCTYPE html><html lang="en"><head><title>scripts/prototype/object</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="scripts/prototype/object"><meta name="groc-project-path" content="scripts/prototype/object.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/prototype/object.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">angular.module(<span class="hljs-string">'AClassAbove'</span>)
+    .factory(<span class="hljs-string">'Prototype.Object'</span>, [
+        <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
 
-            <span class="kd">var</span> <span class="nx">_Object</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="nx">prototype</span><span class="o">:</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span>
-            <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>section: Language
+            <span class="hljs-keyword">var</span> _Object = {
+                prototype: <span class="hljs-built_in">Object</span>.prototype
+            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>section: Language
 class Object</p>
-
-<p>Extensions to the built-in [[Object]] object.</p>
-
-<p>Because it is dangerous and invasive to augment <code>Object.prototype</code> (i.e.,
+<p> Extensions to the built-in [[Object]] object.</p>
+<p> Because it is dangerous and invasive to augment <code>Object.prototype</code> (i.e.,
  add instance methods to objects), all these methods are static methods that
  take an [[Object]] as their first parameter.</p>
-
-<p>[[Object]] is used by Prototype as a namespace; that is, it just keeps a few
+<p> [[Object]] is used by Prototype as a namespace; that is, it just keeps a few
  new methods together, which are intended for namespaced access (i.e. starting
- with "<code>Object.</code>").</p>
-
-<p>For the regular developer (who simply uses Prototype without tweaking it), the
+ with &quot;<code>Object.</code>&quot;).</p>
+<p> For the regular developer (who simply uses Prototype without tweaking it), the
  most commonly used methods are probably [[Object.inspect]] and, to a lesser degree,
  [[Object.clone]].</p>
-
-<p>Advanced users, who wish to create their own objects like Prototype does, or
+<p> Advanced users, who wish to create their own objects like Prototype does, or
  explore objects as if they were hashes, will turn to [[Object.extend]],
  [[Object.keys]], and [[Object.values]].
- *</p></div></div><div class="code"><div class="wrapper">            <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nb">Object</span><span class="p">)</span> <span class="p">{</span>
+ *</p></div></div><div class="code"><div class="wrapper">            (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(Object)</span> {</span>
 
-                <span class="kd">var</span> <span class="nx">Prototype</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="nx">K</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">return</span> <span class="nx">x</span>
-                    <span class="p">}</span>
-                <span class="p">};</span>
+                <span class="hljs-keyword">var</span> Prototype = {
+                    K: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(x)</span> {</span>
+                        <span class="hljs-keyword">return</span> x
+                    }
+                };
 
-                <span class="kd">var</span> <span class="nx">_toString</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">,</span>
-                    <span class="nx">_hasOwnProperty</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">,</span>
-                    <span class="nx">NULL_TYPE</span> <span class="o">=</span> <span class="s1">&#39;Null&#39;</span><span class="p">,</span>
-                    <span class="nx">UNDEFINED_TYPE</span> <span class="o">=</span> <span class="s1">&#39;Undefined&#39;</span><span class="p">,</span>
-                    <span class="nx">BOOLEAN_TYPE</span> <span class="o">=</span> <span class="s1">&#39;Boolean&#39;</span><span class="p">,</span>
-                    <span class="nx">NUMBER_TYPE</span> <span class="o">=</span> <span class="s1">&#39;Number&#39;</span><span class="p">,</span>
-                    <span class="nx">STRING_TYPE</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span><span class="p">,</span>
-                    <span class="nx">OBJECT_TYPE</span> <span class="o">=</span> <span class="s1">&#39;Object&#39;</span><span class="p">,</span>
-                    <span class="nx">FUNCTION_CLASS</span> <span class="o">=</span> <span class="s1">&#39;[object Function]&#39;</span><span class="p">,</span>
-                    <span class="nx">BOOLEAN_CLASS</span> <span class="o">=</span> <span class="s1">&#39;[object Boolean]&#39;</span><span class="p">,</span>
-                    <span class="nx">NUMBER_CLASS</span> <span class="o">=</span> <span class="s1">&#39;[object Number]&#39;</span><span class="p">,</span>
-                    <span class="nx">STRING_CLASS</span> <span class="o">=</span> <span class="s1">&#39;[object String]&#39;</span><span class="p">,</span>
-                    <span class="nx">ARRAY_CLASS</span> <span class="o">=</span> <span class="s1">&#39;[object Array]&#39;</span><span class="p">,</span>
-                    <span class="nx">DATE_CLASS</span> <span class="o">=</span> <span class="s1">&#39;[object Date]&#39;</span><span class="p">,</span>
-                    <span class="nx">NATIVE_JSON_STRINGIFY_SUPPORT</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">JSON</span> <span class="o">&amp;&amp;</span>
-                        <span class="k">typeof</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span> <span class="o">&amp;&amp;</span>
-                        <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;0&#39;</span> <span class="o">&amp;&amp;</span>
-                        <span class="k">typeof</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">Prototype</span><span class="p">.</span><span class="nx">K</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">;</span>
+                <span class="hljs-keyword">var</span> _toString = <span class="hljs-built_in">Object</span>.prototype.toString,
+                    _hasOwnProperty = <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty,
+                    NULL_TYPE = <span class="hljs-string">'Null'</span>,
+                    UNDEFINED_TYPE = <span class="hljs-string">'Undefined'</span>,
+                    BOOLEAN_TYPE = <span class="hljs-string">'Boolean'</span>,
+                    NUMBER_TYPE = <span class="hljs-string">'Number'</span>,
+                    STRING_TYPE = <span class="hljs-string">'String'</span>,
+                    OBJECT_TYPE = <span class="hljs-string">'Object'</span>,
+                    FUNCTION_CLASS = <span class="hljs-string">'[object Function]'</span>,
+                    BOOLEAN_CLASS = <span class="hljs-string">'[object Boolean]'</span>,
+                    NUMBER_CLASS = <span class="hljs-string">'[object Number]'</span>,
+                    STRING_CLASS = <span class="hljs-string">'[object String]'</span>,
+                    ARRAY_CLASS = <span class="hljs-string">'[object Array]'</span>,
+                    DATE_CLASS = <span class="hljs-string">'[object Date]'</span>,
+                    NATIVE_JSON_STRINGIFY_SUPPORT = window.JSON &amp;&amp;
+                        <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">JSON</span>.stringify === <span class="hljs-string">'function'</span> &amp;&amp;
+                        <span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-number">0</span>) === <span class="hljs-string">'0'</span> &amp;&amp;
+                        <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">JSON</span>.stringify(Prototype.K) === <span class="hljs-string">'undefined'</span>;
 
 
 
-                <span class="kd">var</span> <span class="nx">DONT_ENUMS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;toString&#39;</span><span class="p">,</span> <span class="s1">&#39;toLocaleString&#39;</span><span class="p">,</span> <span class="s1">&#39;valueOf&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;hasOwnProperty&#39;</span><span class="p">,</span> <span class="s1">&#39;isPrototypeOf&#39;</span><span class="p">,</span> <span class="s1">&#39;propertyIsEnumerable&#39;</span><span class="p">,</span> <span class="s1">&#39;constructor&#39;</span>
-                <span class="p">];</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Some versions of JScript fail to enumerate over properties, names of which 
-correspond to non-enumerable properties in the prototype chain</p></div></div><div class="code"><div class="wrapper">                <span class="kd">var</span> <span class="nx">IS_DONTENUM_BUGGY</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="k">in</span> <span class="p">{</span>
-                        <span class="nx">toString</span><span class="o">:</span> <span class="mi">1</span>
-                    <span class="p">})</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>check actual property name, so that it works with augmented Object.prototype</p></div></div><div class="code"><div class="wrapper">                        <span class="k">if</span> <span class="p">(</span><span class="nx">p</span> <span class="o">===</span> <span class="s1">&#39;toString&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-                <span class="p">})();</span>
+                <span class="hljs-keyword">var</span> DONT_ENUMS = [<span class="hljs-string">'toString'</span>, <span class="hljs-string">'toLocaleString'</span>, <span class="hljs-string">'valueOf'</span>,
+                    <span class="hljs-string">'hasOwnProperty'</span>, <span class="hljs-string">'isPrototypeOf'</span>, <span class="hljs-string">'propertyIsEnumerable'</span>, <span class="hljs-string">'constructor'</span>
+                ];</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Some versions of JScript fail to enumerate over properties, names of which 
+correspond to non-enumerable properties in the prototype chain</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> IS_DONTENUM_BUGGY = (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> p <span class="hljs-keyword">in</span> {
+                        toString: <span class="hljs-number">1</span>
+                    }) {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>check actual property name, so that it works with augmented Object.prototype</p></div></div><div class="code"><div class="wrapper">                        <span class="hljs-keyword">if</span> (p === <span class="hljs-string">'toString'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+                    }
+                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+                })();
 
-                <span class="kd">function</span> <span class="nx">Type</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">switch</span> <span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">case</span> <span class="kc">null</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="nx">NULL_TYPE</span><span class="p">;</span>
-                        <span class="k">case</span> <span class="p">(</span><span class="k">void</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="nx">UNDEFINED_TYPE</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">o</span><span class="p">;</span>
-                    <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">case</span> <span class="s1">&#39;boolean&#39;</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="nx">BOOLEAN_TYPE</span><span class="p">;</span>
-                        <span class="k">case</span> <span class="s1">&#39;number&#39;</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="nx">NUMBER_TYPE</span><span class="p">;</span>
-                        <span class="k">case</span> <span class="s1">&#39;string&#39;</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="nx">STRING_TYPE</span><span class="p">;</span>
-                    <span class="p">}</span>
-                    <span class="k">return</span> <span class="nx">OBJECT_TYPE</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.extend(destination, source) -> Object
- - destination (Object): The object to receive the new properties.
- - source (Object): The object whose properties will be duplicated.</p>
-
-<p>Copies all properties from the source to the destination object. Used by Prototype
- to simulate inheritance (rather statically) by copying to prototypes.</p>
-
-<p>Documentation should soon become available that describes how Prototype implements
- OOP, where you will find further details on how Prototype uses [[Object.extend]] and
- [[Class.create]] (something that may well change in version 2.0). It will be linked
- from here.</p>
-
-<p>Do not mistake this method with its quasi-namesake [[Element.extend]],
- which implements Prototype's (much more complex) DOM extension mechanism.
- *</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">extend</span><span class="p">(</span><span class="nx">destination</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">property</span> <span class="k">in</span> <span class="nx">source</span><span class="p">)</span>
-                        <span class="nx">destination</span><span class="p">[</span><span class="nx">property</span><span class="p">]</span> <span class="o">=</span> <span class="nx">source</span><span class="p">[</span><span class="nx">property</span><span class="p">];</span>
-                    <span class="k">return</span> <span class="nx">destination</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.inspect(obj) -> String
- - object (Object): The item to be inspected.</p>
-
-<p>Returns the debug-oriented string representation of the object.</p>
-
+                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Type</span><span class="hljs-params">(o)</span> {</span>
+                    <span class="hljs-keyword">switch</span> (o) {
+                        <span class="hljs-keyword">case</span> <span class="hljs-literal">null</span>:
+                            <span class="hljs-keyword">return</span> NULL_TYPE;
+                        <span class="hljs-keyword">case</span> (<span class="hljs-keyword">void</span> <span class="hljs-number">0</span>):
+                            <span class="hljs-keyword">return</span> UNDEFINED_TYPE;
+                    }
+                    <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> o;
+                    <span class="hljs-keyword">switch</span> (type) {
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">'boolean'</span>:
+                            <span class="hljs-keyword">return</span> BOOLEAN_TYPE;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">'number'</span>:
+                            <span class="hljs-keyword">return</span> NUMBER_TYPE;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">'string'</span>:
+                            <span class="hljs-keyword">return</span> STRING_TYPE;
+                    }
+                    <span class="hljs-keyword">return</span> OBJECT_TYPE;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.extend(destination, source) -&gt; Object</p>
 <ul>
-<li><code>undefined</code> and <code>null</code> are represented as such.</li>
+<li>destination (Object): The object to receive the new properties.</li>
+<li><p>source (Object): The object whose properties will be duplicated.</p>
+<p>Copies all properties from the source to the destination object. Used by Prototype
+to simulate inheritance (rather statically) by copying to prototypes.</p>
+<p>Documentation should soon become available that describes how Prototype implements
+OOP, where you will find further details on how Prototype uses [[Object.extend]] and
+[[Class.create]] (something that may well change in version 2.0). It will be linked
+from here.</p>
+<p>Do not mistake this method with its quasi-namesake [[Element.extend]],
+which implements Prototype&#39;s (much more complex) DOM extension mechanism.
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">extend</span><span class="hljs-params">(destination, source)</span> {</span>
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> property <span class="hljs-keyword">in</span> source)
+                        destination[property] = source[property];
+                    <span class="hljs-keyword">return</span> destination;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.inspect(obj) -&gt; String</p>
+<ul>
+<li><p>object (Object): The item to be inspected.</p>
+<p>Returns the debug-oriented string representation of the object.</p>
+</li>
+<li><p><code>undefined</code> and <code>null</code> are represented as such.</p>
+</li>
 <li><p>Other types are looked up for a <code>inspect</code> method: if there is one, it is used, otherwise,
 it reverts to the <code>toString</code> method.</p>
-
 <p>Prototype provides <code>inspect</code> methods for many types, both built-in and library-defined,
 such as in [[String#inspect]], [[Array#inspect]], [[Enumerable#inspect]] and [[Hash#inspect]],
-which attempt to provide most-useful string representations (from a developer's standpoint)
+which attempt to provide most-useful string representations (from a developer&#39;s standpoint)
 for their respective types.</p>
-
 <h5 id="examples">Examples</h5>
-
-<p>Object.inspect();
- // -> 'undefined'</p>
-
-<p>Object.inspect(null);
- // -> 'null'</p>
-
-<p>Object.inspect(false);
- // -> 'false'</p>
-
-<p>Object.inspect([1, 2, 3]);
- // -> '[1, 2, 3]'</p>
-
-<p>Object.inspect('hello');
- // -> "'hello'"
-*</p></li>
-</ul></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">inspect</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">try</span> <span class="p">{</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="nx">isUndefined</span><span class="p">(</span><span class="nx">object</span><span class="p">))</span> <span class="k">return</span> <span class="s1">&#39;undefined&#39;</span><span class="p">;</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="nx">object</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;null&#39;</span><span class="p">;</span>
-                        <span class="k">return</span> <span class="nx">object</span><span class="p">.</span><span class="nx">inspect</span> <span class="o">?</span> <span class="nx">object</span><span class="p">.</span><span class="nx">inspect</span><span class="p">()</span> <span class="o">:</span> <span class="nb">String</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
-                    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">RangeError</span><span class="p">)</span> <span class="k">return</span> <span class="s1">&#39;...&#39;</span><span class="p">;</span>
-                        <span class="k">throw</span> <span class="nx">e</span><span class="p">;</span>
-                    <span class="p">}</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.toJSON(object) -> String
- - object (Object): The object to be serialized.</p>
-
+<p>  Object.inspect();
+  // -&gt; &#39;undefined&#39;</p>
+<p>  Object.inspect(null);
+  // -&gt; &#39;null&#39;</p>
+<p>  Object.inspect(false);
+  // -&gt; &#39;false&#39;</p>
+<p>  Object.inspect([1, 2, 3]);
+  // -&gt; &#39;[1, 2, 3]&#39;</p>
+<p>  Object.inspect(&#39;hello&#39;);
+  // -&gt; &quot;&#39;hello&#39;&quot;
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">inspect</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">try</span> {
+                        <span class="hljs-keyword">if</span> (isUndefined(object)) <span class="hljs-keyword">return</span> <span class="hljs-string">'undefined'</span>;
+                        <span class="hljs-keyword">if</span> (object === <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">'null'</span>;
+                        <span class="hljs-keyword">return</span> object.inspect ? object.inspect() : <span class="hljs-built_in">String</span>(object);
+                    } <span class="hljs-keyword">catch</span> (e) {
+                        <span class="hljs-keyword">if</span> (e <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">RangeError</span>) <span class="hljs-keyword">return</span> <span class="hljs-string">'...'</span>;
+                        <span class="hljs-keyword">throw</span> e;
+                    }
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.toJSON(object) -&gt; String</p>
+<ul>
+<li><p>object (Object): The object to be serialized.</p>
 <p>Returns a JSON string.</p>
-
 <p><code>undefined</code> and <code>function</code> types have no JSON representation. <code>boolean</code>
- and <code>null</code> are coerced to strings.</p>
-
+and <code>null</code> are coerced to strings.</p>
 <p>For other types, [[Object.toJSON]] looks for a <code>toJSON</code> method on <code>object</code>.
- If there is one, it is used; otherwise the object is treated like a
- generic [[Object]].</p>
+If there is one, it is used; otherwise the object is treated like a
+generic [[Object]].</p>
+<p>For more information on Prototype&#39;s JSON encoder, hop to our
+<a href="http://prototypejs.org/learn/json">tutorial</a>.</p>
+<h5 id="example">Example</h5>
+<p>  var data = {name: &#39;Violet&#39;, occupation: &#39;character&#39;, age: 25, pets: [&#39;frog&#39;, &#39;rabbit&#39;]};
+  Object.toJSON(data);
+  //-&gt; &#39;{&quot;name&quot;: &quot;Violet&quot;, &quot;occupation&quot;: &quot;character&quot;, &quot;age&quot;: 25, &quot;pets&quot;: [&quot;frog&quot;,&quot;rabbit&quot;]}&#39;
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toJSON</span><span class="hljs-params">(value)</span> {</span>
+                    <span class="hljs-keyword">return</span> Str(<span class="hljs-string">''</span>, {
+                        <span class="hljs-string">''</span>: value
+                    }, []);
+                }
 
-<p>For more information on Prototype's JSON encoder, hop to our
- <a href="http://prototypejs.org/learn/json">tutorial</a>.</p>
+                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Str</span><span class="hljs-params">(key, holder, stack)</span> {</span>
+                    <span class="hljs-keyword">var</span> value = holder[key];
+                    <span class="hljs-keyword">if</span> (Type(value) === OBJECT_TYPE &amp;&amp; <span class="hljs-keyword">typeof</span> value.toJSON === <span class="hljs-string">'function'</span>) {
+                        value = value.toJSON(key);
+                    }
 
-<p>##### Example</p>
+                    <span class="hljs-keyword">var</span> _class = _toString.call(value);
 
-<pre><code> var data = {name: 'Violet', occupation: 'character', age: 25, pets: ['frog', 'rabbit']};
- Object.toJSON(data);
- //-&gt; '{"name": "Violet", "occupation": "character", "age": 25, "pets": ["frog","rabbit"]}'
-</code></pre>
+                    <span class="hljs-keyword">switch</span> (_class) {
+                        <span class="hljs-keyword">case</span> NUMBER_CLASS:
+                        <span class="hljs-keyword">case</span> BOOLEAN_CLASS:
+                        <span class="hljs-keyword">case</span> STRING_CLASS:
+                            value = value.valueOf();
+                    }
 
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">toJSON</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">Str</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">{</span>
-                        <span class="s1">&#39;&#39;</span><span class="o">:</span> <span class="nx">value</span>
-                    <span class="p">},</span> <span class="p">[]);</span>
-                <span class="p">}</span>
+                    <span class="hljs-keyword">switch</span> (value) {
+                        <span class="hljs-keyword">case</span> <span class="hljs-literal">null</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">'null'</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-literal">true</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">'true'</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-literal">false</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-string">'false'</span>;
+                    }
 
-                <span class="kd">function</span> <span class="nx">Str</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">holder</span><span class="p">,</span> <span class="nx">stack</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">holder</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nx">Type</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">===</span> <span class="nx">OBJECT_TYPE</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toJSON</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">(</span><span class="nx">key</span><span class="p">);</span>
-                    <span class="p">}</span>
+                    <span class="hljs-keyword">var</span> type = <span class="hljs-keyword">typeof</span> value;
+                    <span class="hljs-keyword">switch</span> (type) {
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">'string'</span>:
+                            <span class="hljs-keyword">return</span> value.inspect(<span class="hljs-literal">true</span>);
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">'number'</span>:
+                            <span class="hljs-keyword">return</span> <span class="hljs-built_in">isFinite</span>(value) ? <span class="hljs-built_in">String</span>(value) : <span class="hljs-string">'null'</span>;
+                        <span class="hljs-keyword">case</span> <span class="hljs-string">'object'</span>:
 
-                    <span class="kd">var</span> <span class="nx">_class</span> <span class="o">=</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+                            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, length = stack.length; i &lt; length; i++) {
+                                <span class="hljs-keyword">if</span> (stack[i] === value) {
+                                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">"Cyclic reference to '"</span> + value + <span class="hljs-string">"' in object"</span>);
+                                }
+                            }
+                            stack.push(value);
 
-                    <span class="k">switch</span> <span class="p">(</span><span class="nx">_class</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">case</span> <span class="nx">NUMBER_CLASS</span><span class="o">:</span>
-                        <span class="k">case</span> <span class="nx">BOOLEAN_CLASS</span><span class="o">:</span>
-                        <span class="k">case</span> <span class="nx">STRING_CLASS</span><span class="o">:</span>
-                            <span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">();</span>
-                    <span class="p">}</span>
+                            <span class="hljs-keyword">var</span> partial = [];
+                            <span class="hljs-keyword">if</span> (_class === ARRAY_CLASS) {
+                                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, length = value.length; i &lt; length; i++) {
+                                    <span class="hljs-keyword">var</span> str = Str(i, value, stack);
+                                    partial.push(<span class="hljs-keyword">typeof</span> str === <span class="hljs-string">'undefined'</span> ? <span class="hljs-string">'null'</span> : str);
+                                }
+                                partial = <span class="hljs-string">'['</span> + partial.join(<span class="hljs-string">','</span>) + <span class="hljs-string">']'</span>;
+                            } <span class="hljs-keyword">else</span> {
+                                <span class="hljs-keyword">var</span> keys = <span class="hljs-built_in">Object</span>.keys(value);
+                                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, length = keys.length; i &lt; length; i++) {
+                                    <span class="hljs-keyword">var</span> key = keys[i],
+                                        str = Str(key, value, stack);
+                                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> str !== <span class="hljs-string">"undefined"</span>) {
+                                        partial.push(key.inspect(<span class="hljs-literal">true</span>) + <span class="hljs-string">':'</span> + str);
+                                    }
+                                }
+                                partial = <span class="hljs-string">'{'</span> + partial.join(<span class="hljs-string">','</span>) + <span class="hljs-string">'}'</span>;
+                            }
+                            stack.pop();
+                            <span class="hljs-keyword">return</span> partial;
+                    }
+                }
 
-                    <span class="k">switch</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">case</span> <span class="kc">null</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="s1">&#39;null&#39;</span><span class="p">;</span>
-                        <span class="k">case</span> <span class="kc">true</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
-                        <span class="k">case</span> <span class="kc">false</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="s1">&#39;false&#39;</span><span class="p">;</span>
-                    <span class="p">}</span>
-
-                    <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">value</span><span class="p">;</span>
-                    <span class="k">switch</span> <span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">case</span> <span class="s1">&#39;string&#39;</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="nx">value</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-                        <span class="k">case</span> <span class="s1">&#39;number&#39;</span><span class="o">:</span>
-                            <span class="k">return</span> <span class="nb">isFinite</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">?</span> <span class="nb">String</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">:</span> <span class="s1">&#39;null&#39;</span><span class="p">;</span>
-                        <span class="k">case</span> <span class="s1">&#39;object&#39;</span><span class="o">:</span>
-
-                            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">stack</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                                <span class="k">if</span> <span class="p">(</span><span class="nx">stack</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">===</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
-                                    <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">&quot;Cyclic reference to &#39;&quot;</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span> <span class="s2">&quot;&#39; in object&quot;</span><span class="p">);</span>
-                                <span class="p">}</span>
-                            <span class="p">}</span>
-                            <span class="nx">stack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-
-                            <span class="kd">var</span> <span class="nx">partial</span> <span class="o">=</span> <span class="p">[];</span>
-                            <span class="k">if</span> <span class="p">(</span><span class="nx">_class</span> <span class="o">===</span> <span class="nx">ARRAY_CLASS</span><span class="p">)</span> <span class="p">{</span>
-                                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                                    <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">Str</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">stack</span><span class="p">);</span>
-                                    <span class="nx">partial</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">str</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span> <span class="o">?</span> <span class="s1">&#39;null&#39;</span> <span class="o">:</span> <span class="nx">str</span><span class="p">);</span>
-                                <span class="p">}</span>
-                                <span class="nx">partial</span> <span class="o">=</span> <span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="nx">partial</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span><span class="p">;</span>
-                            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                                <span class="kd">var</span> <span class="nx">keys</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-                                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">keys</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                                    <span class="kd">var</span> <span class="nx">key</span> <span class="o">=</span> <span class="nx">keys</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span>
-                                        <span class="nx">str</span> <span class="o">=</span> <span class="nx">Str</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">stack</span><span class="p">);</span>
-                                    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">str</span> <span class="o">!==</span> <span class="s2">&quot;undefined&quot;</span><span class="p">)</span> <span class="p">{</span>
-                                        <span class="nx">partial</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">key</span><span class="p">.</span><span class="nx">inspect</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">);</span>
-                                    <span class="p">}</span>
-                                <span class="p">}</span>
-                                <span class="nx">partial</span> <span class="o">=</span> <span class="s1">&#39;{&#39;</span> <span class="o">+</span> <span class="nx">partial</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;}&#39;</span><span class="p">;</span>
-                            <span class="p">}</span>
-                            <span class="nx">stack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
-                            <span class="k">return</span> <span class="nx">partial</span><span class="p">;</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-
-                <span class="kd">function</span> <span class="nx">stringify</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.toQueryString(object) -> String
- - object (Object): The object whose property/value pairs will be converted.</p>
-
+                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringify</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(object);
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.toQueryString(object) -&gt; String</p>
+<ul>
+<li><p>object (Object): The object whose property/value pairs will be converted.</p>
 <p>Turns an object into its URL-encoded query string representation.</p>
-
 <p>This is a form of serialization, and is mostly useful to provide complex
- parameter sets for stuff such as objects in the [[Ajax]] namespace (e.g.
- [[Ajax.Request]]).</p>
-
+parameter sets for stuff such as objects in the [[Ajax]] namespace (e.g.
+[[Ajax.Request]]).</p>
 <p>Undefined-value pairs will be serialized as if empty-valued. Array-valued
- pairs will get serialized with one name/value pair per array element. All
- values get URI-encoded using JavaScript's native <code>encodeURIComponent</code>
- function.</p>
-
+pairs will get serialized with one name/value pair per array element. All
+values get URI-encoded using JavaScript&#39;s native <code>encodeURIComponent</code>
+function.</p>
 <p>The order of pairs in the serialized form is not guaranteed (and mostly
- irrelevant anyway) &mdash; except for array-based parts, which are serialized
- in array order.</p>
-
-<p>##### Examples</p>
-
-<pre><code> Object.toQueryString({ action: 'ship', order_id: 123, fees: ['f1', 'f2'], 'label': 'a demo' })
- // -&gt; 'action=ship&amp;order_id=123&amp;fees=f1&amp;fees=f2&amp;label=a+demo'
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">toQueryString</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">$H</span><span class="p">(</span><span class="nx">object</span><span class="p">).</span><span class="nx">toQueryString</span><span class="p">();</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.toHTML(object) -> String
- - object (Object): The object to convert to HTML.</p>
-
+irrelevant anyway) &mdash; except for array-based parts, which are serialized
+in array order.</p>
+<h5 id="examples">Examples</h5>
+<p>  Object.toQueryString({ action: &#39;ship&#39;, order_id: 123, fees: [&#39;f1&#39;, &#39;f2&#39;], &#39;label&#39;: &#39;a demo&#39; })
+  // -&gt; &#39;action=ship&amp;order_id=123&amp;fees=f1&amp;fees=f2&amp;label=a+demo&#39;
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toQueryString</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> $H(object).toQueryString();
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.toHTML(object) -&gt; String</p>
+<ul>
+<li><p>object (Object): The object to convert to HTML.</p>
 <p>Converts the object to its HTML representation.</p>
+<p>Returns the return value of <code>object</code>&#39;s <code>toHTML</code> method if it exists; else
+runs <code>object</code> through [[String.interpret]].</p>
+<h5 id="examples">Examples</h5>
+<p>  var Bookmark = Class.create({</p>
+<pre><code>initialize: function(name, url) {
+  this.name = name;
+  this.url = url;
+},
 
-<p>Returns the return value of <code>object</code>'s <code>toHTML</code> method if it exists; else
- runs <code>object</code> through [[String.interpret]].</p>
-
-<p>##### Examples</p>
-
-<pre><code> var Bookmark = Class.create({
-   initialize: function(name, url) {
-     this.name = name;
-     this.url = url;
-   },
-
-   toHTML: function() {
-     return '&lt;a href="#{url}"&gt;#{name}&lt;/a&gt;'.interpolate(this);
-   }
- });
-
- var api = new Bookmark('Prototype API', 'http://prototypejs.org/api');
-
- Object.toHTML(api);
- //-&gt; '&lt;a href="http://prototypejs.org/api"&gt;Prototype API&lt;/a&gt;'
-
- Object.toHTML("Hello world!");
- //-&gt; "Hello world!"
-
- Object.toHTML();
- //-&gt; ""
-
- Object.toHTML(null);
- //-&gt; ""
-
- Object.toHTML(undefined);
- //-&gt; ""
-
- Object.toHTML(true);
- //-&gt; "true"
-
- Object.toHTML(false);
- //-&gt; "false"
-
- Object.toHTML(123);
- //-&gt; "123"
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">toHTML</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">object</span> <span class="o">&amp;&amp;</span> <span class="nx">object</span><span class="p">.</span><span class="nx">toHTML</span> <span class="o">?</span> <span class="nx">object</span><span class="p">.</span><span class="nx">toHTML</span><span class="p">()</span> <span class="o">:</span> <span class="nb">String</span><span class="p">.</span><span class="nx">interpret</span><span class="p">(</span><span class="nx">object</span><span class="p">);</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.keys(object) -> Array
- - object (Object): The object to pull keys from.</p>
-
-<p>Returns an array of the object's property names.</p>
-
+toHTML: function() {
+  return &#39;&lt;a href=&quot;#{url}&quot;&gt;#{name}&lt;/a&gt;&#39;.interpolate(this);
+}</code></pre>
+<p>  });</p>
+<p>  var api = new Bookmark(&#39;Prototype API&#39;, &#39;<a href="http://prototypejs.org/api">http://prototypejs.org/api</a>&#39;);</p>
+<p>  Object.toHTML(api);
+  //-&gt; &#39;<a href="http://prototypejs.org/api">Prototype API</a>&#39;</p>
+<p>  Object.toHTML(&quot;Hello world!&quot;);
+  //-&gt; &quot;Hello world!&quot;</p>
+<p>  Object.toHTML();
+  //-&gt; &quot;&quot;</p>
+<p>  Object.toHTML(null);
+  //-&gt; &quot;&quot;</p>
+<p>  Object.toHTML(undefined);
+  //-&gt; &quot;&quot;</p>
+<p>  Object.toHTML(true);
+  //-&gt; &quot;true&quot;</p>
+<p>  Object.toHTML(false);
+  //-&gt; &quot;false&quot;</p>
+<p>  Object.toHTML(123);
+  //-&gt; &quot;123&quot;
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toHTML</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> object &amp;&amp; object.toHTML ? object.toHTML() : <span class="hljs-built_in">String</span>.interpret(object);
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.keys(object) -&gt; Array</p>
+<ul>
+<li><p>object (Object): The object to pull keys from.</p>
+<p>Returns an array of the object&#39;s property names.</p>
 <p>Note that the order of the resulting array is browser-dependent &mdash; it
- relies on the <code>for...in</code> loop, for which the ECMAScript spec does not
- prescribe an enumeration order. Sort the resulting array if you wish to
- normalize the order of the object keys.</p>
-
+relies on the <code>for...in</code> loop, for which the ECMAScript spec does not
+prescribe an enumeration order. Sort the resulting array if you wish to
+normalize the order of the object keys.</p>
 <p><code>Object.keys</code> acts as an ECMAScript 5 <a href="http://remysharp.com/2010/10/08/what-is-a-polyfill/">polyfill</a>.
- It is only defined if not already present in the user's browser, and it
- is meant to behave like the native version as much as possible. Consult
- the <a href="http://es5.github.com/#x15.2.3.14">ES5 specification</a> for more
- information.</p>
+It is only defined if not already present in the user&#39;s browser, and it
+is meant to behave like the native version as much as possible. Consult
+the <a href="http://es5.github.com/#x15.2.3.14">ES5 specification</a> for more
+information.</p>
+<h5 id="examples">Examples</h5>
+<p>  Object.keys();
+  // -&gt; []</p>
+<p>  Object.keys({ name: &#39;Prototype&#39;, version: &#39;1.6.1&#39; }).sort();
+  // -&gt; [&#39;name&#39;, &#39;version&#39;]
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">keys</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">if</span> (Type(object) !== OBJECT_TYPE) {
+                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>();
+                    }
+                    <span class="hljs-keyword">var</span> results = [];
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> property <span class="hljs-keyword">in</span> object) {
+                        <span class="hljs-keyword">if</span> (_hasOwnProperty.call(object, property))
+                            results.push(property);
+                    }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Account for the DontEnum properties in affected browsers.</p></div></div><div class="code"><div class="wrapper">                    <span class="hljs-keyword">if</span> (IS_DONTENUM_BUGGY) {
+                        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; property = DONT_ENUMS[i]; i++) {
+                            <span class="hljs-keyword">if</span> (_hasOwnProperty.call(object, property))
+                                results.push(property);
+                        }
+                    }
 
-<p>##### Examples</p>
-
-<pre><code> Object.keys();
- // -&gt; []
-
- Object.keys({ name: 'Prototype', version: '1.6.1' }).sort();
- // -&gt; ['name', 'version']
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">keys</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nx">Type</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">OBJECT_TYPE</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">();</span>
-                    <span class="p">}</span>
-                    <span class="kd">var</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>
-                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">property</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="nx">_hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">property</span><span class="p">))</span>
-                            <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">property</span><span class="p">);</span>
-                    <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Account for the DontEnum properties in affected browsers.</p></div></div><div class="code"><div class="wrapper">                    <span class="k">if</span> <span class="p">(</span><span class="nx">IS_DONTENUM_BUGGY</span><span class="p">)</span> <span class="p">{</span>
-                        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">property</span> <span class="o">=</span> <span class="nx">DONT_ENUMS</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                            <span class="k">if</span> <span class="p">(</span><span class="nx">_hasOwnProperty</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">object</span><span class="p">,</span> <span class="nx">property</span><span class="p">))</span>
-                                <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">property</span><span class="p">);</span>
-                        <span class="p">}</span>
-                    <span class="p">}</span>
-
-                    <span class="k">return</span> <span class="nx">results</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.values(object) -> Array
- - object (Object): The object to pull values from.</p>
-
-<p>Returns an array of the object's property values.</p>
-
+                    <span class="hljs-keyword">return</span> results;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.values(object) -&gt; Array</p>
+<ul>
+<li><p>object (Object): The object to pull values from.</p>
+<p>Returns an array of the object&#39;s property values.</p>
 <p>Note that the order of the resulting array is browser-dependent &mdash; it
- relies on the <code>for...in</code> loop, for which the ECMAScript spec does not
- prescribe an enumeration order.</p>
-
+relies on the <code>for...in</code> loop, for which the ECMAScript spec does not
+prescribe an enumeration order.</p>
 <p>Also, remember that while property <em>names</em> are unique, property <em>values</em>
- have no such constraint.</p>
-
-<p>##### Examples</p>
-
-<pre><code> Object.values();
- // -&gt; []
-
- Object.values({ name: 'Prototype', version: '1.6.1' }).sort();
- // -&gt; ['1.6.1', 'Prototype']
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">values</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="kd">var</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">[];</span>
-                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">property</span> <span class="k">in</span> <span class="nx">object</span><span class="p">)</span>
-                        <span class="nx">results</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">object</span><span class="p">[</span><span class="nx">property</span><span class="p">]);</span>
-                    <span class="k">return</span> <span class="nx">results</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.clone(object) -> Object
- - object (Object): The object to clone.</p>
-
+have no such constraint.</p>
+<h5 id="examples">Examples</h5>
+<p>  Object.values();
+  // -&gt; []</p>
+<p>  Object.values({ name: &#39;Prototype&#39;, version: &#39;1.6.1&#39; }).sort();
+  // -&gt; [&#39;1.6.1&#39;, &#39;Prototype&#39;]
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">values</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">var</span> results = [];
+                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> property <span class="hljs-keyword">in</span> object)
+                        results.push(object[property]);
+                    <span class="hljs-keyword">return</span> results;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.clone(object) -&gt; Object</p>
+<ul>
+<li><p>object (Object): The object to clone.</p>
 <p>Creates and returns a shallow duplicate of the passed object by copying
- all of the original's key/value pairs onto an empty object.</p>
-
+all of the original&#39;s key/value pairs onto an empty object.</p>
 <p>Do note that this is a <em>shallow</em> copy, not a <em>deep</em> copy. Nested objects
- will retain their references.</p>
-
-<p>##### Examples</p>
-
-<pre><code> var original = {name: 'primaryColors', values: ['red', 'green', 'blue']};
- var copy = Object.clone(original);
-
- original.name;
- // -&gt; "primaryColors"
- original.values[0];
- // -&gt; "red"
- copy.name;
- // -&gt; "primaryColors"
-
- copy.name = "secondaryColors";
- original.name;
- // -&gt; "primaryColors"
- copy.name;
- // -&gt; "secondaryColors"
-
- copy.values[0] = 'magenta';
- copy.values[1] = 'cyan';
- copy.values[2] = 'yellow';
- original.values[0];
- // -&gt; "magenta" (it's a shallow copy, so they share the array)
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">extend</span><span class="p">({},</span> <span class="nx">object</span><span class="p">);</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.isElement(object) -> Boolean
- - object (Object): The object to test.</p>
-
+will retain their references.</p>
+<h5 id="examples">Examples</h5>
+<p>  var original = {name: &#39;primaryColors&#39;, values: [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]};
+  var copy = Object.clone(original);</p>
+<p>  original.name;
+  // -&gt; &quot;primaryColors&quot;
+  original.values[0];
+  // -&gt; &quot;red&quot;
+  copy.name;
+  // -&gt; &quot;primaryColors&quot;</p>
+<p>  copy.name = &quot;secondaryColors&quot;;
+  original.name;
+  // -&gt; &quot;primaryColors&quot;
+  copy.name;
+  // -&gt; &quot;secondaryColors&quot;</p>
+<p>  copy.values[0] = &#39;magenta&#39;;
+  copy.values[1] = &#39;cyan&#39;;
+  copy.values[2] = &#39;yellow&#39;;
+  original.values[0];
+  // -&gt; &quot;magenta&quot; (it&#39;s a shallow copy, so they share the array)
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">clone</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> extend({}, object);
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.isElement(object) -&gt; Boolean</p>
+<ul>
+<li><p>object (Object): The object to test.</p>
 <p>Returns <code>true</code> if <code>object</code> is a DOM node of type 1; <code>false</code> otherwise.</p>
-
-<p>##### Examples</p>
-
-<pre><code> Object.isElement(new Element('div'));
- //-&gt; true
-
- Object.isElement(document.createElement('div'));
- //-&gt; true
-
- Object.isElement($('id_of_an_exiting_element'));
- //-&gt; true
-
- Object.isElement(document.createTextNode('foo'));
- //-&gt; false
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">isElement</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="o">!!</span><span class="p">(</span><span class="nx">object</span> <span class="o">&amp;&amp;</span> <span class="nx">object</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="mi">1</span><span class="p">);</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.isArray(object) -> Boolean
- - object (Object): The object to test.</p>
-
+<h5 id="examples">Examples</h5>
+<p>  Object.isElement(new Element(&#39;div&#39;));
+  //-&gt; true</p>
+<p>  Object.isElement(document.createElement(&#39;div&#39;));
+  //-&gt; true</p>
+<p>  Object.isElement($(&#39;id_of_an_exiting_element&#39;));
+  //-&gt; true</p>
+<p>  Object.isElement(document.createTextNode(&#39;foo&#39;));
+  //-&gt; false
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isElement</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> !!(object &amp;&amp; object.nodeType == <span class="hljs-number">1</span>);
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.isArray(object) -&gt; Boolean</p>
+<ul>
+<li><p>object (Object): The object to test.</p>
 <p>Returns <code>true</code> if <code>object</code> is an [[Array]]; <code>false</code> otherwise.</p>
+<h5 id="examples">Examples</h5>
+<p>  Object.isArray([]);
+  //-&gt; true</p>
+<p>  Object.isArray($w());
+  //-&gt; true</p>
+<p>  Object.isArray({ });
+  //-&gt; false
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isArray</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> _toString.call(object) === ARRAY_CLASS;
+                }
 
-<p>##### Examples</p>
+                <span class="hljs-keyword">var</span> hasNativeIsArray = (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Array</span>.isArray == <span class="hljs-string">'function'</span>) &amp;&amp; <span class="hljs-built_in">Array</span>.isArray([]) &amp;&amp; !<span class="hljs-built_in">Array</span>.isArray({});
 
-<pre><code> Object.isArray([]);
- //-&gt; true
-
- Object.isArray($w());
- //-&gt; true
-
- Object.isArray({ });
- //-&gt; false
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">isArray</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="o">===</span> <span class="nx">ARRAY_CLASS</span><span class="p">;</span>
-                <span class="p">}</span>
-
-                <span class="kd">var</span> <span class="nx">hasNativeIsArray</span> <span class="o">=</span> <span class="p">(</span><span class="k">typeof</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span> <span class="o">==</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">([])</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">({});</span>
-
-                <span class="k">if</span> <span class="p">(</span><span class="nx">hasNativeIsArray</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="nx">isArray</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.isHash(object) -> Boolean
- - object (Object): The object to test.</p>
-
+                <span class="hljs-keyword">if</span> (hasNativeIsArray) {
+                    isArray = <span class="hljs-built_in">Array</span>.isArray;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.isHash(object) -&gt; Boolean</p>
+<ul>
+<li><p>object (Object): The object to test.</p>
 <p>Returns <code>true</code> if <code>object</code> is an instance of the [[Hash]] class; <code>false</code>
- otherwise.</p>
-
-<p>##### Examples</p>
-
-<pre><code> Object.isHash(new Hash({ }));
- //-&gt; true
-
- Object.isHash($H({ }));
- //-&gt; true
-
- Object.isHash({ });
- //-&gt; false
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">isHash</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">object</span> <span class="k">instanceof</span> <span class="nx">Hash</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.isFunction(object) -> Boolean
- - object (Object): The object to test.</p>
-
+otherwise.</p>
+<h5 id="examples">Examples</h5>
+<p>  Object.isHash(new Hash({ }));
+  //-&gt; true</p>
+<p>  Object.isHash($H({ }));
+  //-&gt; true</p>
+<p>  Object.isHash({ });
+  //-&gt; false
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isHash</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> object <span class="hljs-keyword">instanceof</span> Hash;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.isFunction(object) -&gt; Boolean</p>
+<ul>
+<li><p>object (Object): The object to test.</p>
 <p>Returns <code>true</code> if <code>object</code> is of type [[Function]]; <code>false</code> otherwise.</p>
-
-<p>##### Examples</p>
-
-<pre><code> Object.isFunction($);
- //-&gt; true
-
- Object.isFunction(123);
- //-&gt; false
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">isFunction</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="o">===</span> <span class="nx">FUNCTION_CLASS</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.isString(object) -> Boolean
- - object (Object): The object to test.</p>
-
+<h5 id="examples">Examples</h5>
+<p>  Object.isFunction($);
+  //-&gt; true</p>
+<p>  Object.isFunction(123);
+  //-&gt; false
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isFunction</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> _toString.call(object) === FUNCTION_CLASS;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.isString(object) -&gt; Boolean</p>
+<ul>
+<li><p>object (Object): The object to test.</p>
 <p>Returns <code>true</code> if <code>object</code> is of type [[String]]; <code>false</code> otherwise.</p>
-
-<p>##### Examples</p>
-
-<pre><code> Object.isString("foo");
- //-&gt; true
-
- Object.isString("");
- //-&gt; true
-
- Object.isString(123);
- //-&gt; false
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">isString</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="o">===</span> <span class="nx">STRING_CLASS</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.isNumber(object) -> Boolean
- - object (Object): The object to test.</p>
-
+<h5 id="examples">Examples</h5>
+<p>  Object.isString(&quot;foo&quot;);
+  //-&gt; true</p>
+<p>  Object.isString(&quot;&quot;);
+  //-&gt; true</p>
+<p>  Object.isString(123);
+  //-&gt; false
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isString</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> _toString.call(object) === STRING_CLASS;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.isNumber(object) -&gt; Boolean</p>
+<ul>
+<li><p>object (Object): The object to test.</p>
 <p>Returns <code>true</code> if <code>object</code> is of type [[Number]]; <code>false</code> otherwise.</p>
-
-<p>##### Examples</p>
-
-<pre><code> Object.isNumber(0);
- //-&gt; true
-
- Object.isNumber(1.2);
- //-&gt; true
-
- Object.isNumber("foo");
- //-&gt; false
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">isNumber</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="o">===</span> <span class="nx">NUMBER_CLASS</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.isDate(object) -> Boolean
- - object (Object): The object to test.</p>
-
+<h5 id="examples">Examples</h5>
+<p>  Object.isNumber(0);
+  //-&gt; true</p>
+<p>  Object.isNumber(1.2);
+  //-&gt; true</p>
+<p>  Object.isNumber(&quot;foo&quot;);
+  //-&gt; false
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNumber</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> _toString.call(object) === NUMBER_CLASS;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.isDate(object) -&gt; Boolean</p>
+<ul>
+<li><p>object (Object): The object to test.</p>
 <p>Returns <code>true</code> if <code>object</code> is of type [[Date]]; <code>false</code> otherwise.</p>
-
-<p>##### Examples</p>
-
-<pre><code> Object.isDate(new Date);
- //-&gt; true
-
- Object.isDate("Dec 25, 1995");
- //-&gt; false
-
- Object.isDate(new Date("Dec 25, 1995"));
- //-&gt; true
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">isDate</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="nx">_toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="o">===</span> <span class="nx">DATE_CLASS</span><span class="p">;</span>
-                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Object.isUndefined(object) -> Boolean
- - object (Object): The object to test.</p>
-
+<h5 id="examples">Examples</h5>
+<p>  Object.isDate(new Date);
+  //-&gt; true</p>
+<p>  Object.isDate(&quot;Dec 25, 1995&quot;);
+  //-&gt; false</p>
+<p>  Object.isDate(new Date(&quot;Dec 25, 1995&quot;));
+  //-&gt; true
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isDate</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> _toString.call(object) === DATE_CLASS;
+                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Object.isUndefined(object) -&gt; Boolean</p>
+<ul>
+<li><p>object (Object): The object to test.</p>
 <p>Returns <code>true</code> if <code>object</code> is of type <code>undefined</code>; <code>false</code> otherwise.</p>
+<h5 id="examples">Examples</h5>
+<p>  Object.isUndefined();
+  //-&gt; true</p>
+<p>  Object.isUndefined(undefined);
+  //-&gt; true</p>
+<p>  Object.isUndefined(null);
+  //-&gt; false</p>
+<p>  Object.isUndefined(0);
+  //-&gt; false</p>
+<p>  Object.isUndefined(&quot;&quot;);
+  //-&gt; false
+*</p>
+</li>
+</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isUndefined</span><span class="hljs-params">(object)</span> {</span>
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> object === <span class="hljs-string">"undefined"</span>;
+                }
 
-<p>##### Examples</p>
+                extend(<span class="hljs-built_in">Object</span>, {
+                    extend: extend,
+                    inspect: inspect,
+                    toJSON: NATIVE_JSON_STRINGIFY_SUPPORT ? stringify : toJSON,
+                    toQueryString: toQueryString,
+                    toHTML: toHTML,
+                    keys: <span class="hljs-built_in">Object</span>.keys || keys,
+                    values: values,
+                    clone: clone,
+                    isElement: isElement,
+                    isArray: isArray,
+                    isHash: isHash,
+                    isFunction: isFunction,
+                    isString: isString,
+                    isNumber: isNumber,
+                    isDate: isDate,
+                    isUndefined: isUndefined
+                });
+            })(_Object);
 
-<pre><code> Object.isUndefined();
- //-&gt; true
-
- Object.isUndefined(undefined);
- //-&gt; true
-
- Object.isUndefined(null);
- //-&gt; false
-
- Object.isUndefined(0);
- //-&gt; false
-
- Object.isUndefined("");
- //-&gt; false
-</code></pre>
-
-<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">isUndefined</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">return</span> <span class="k">typeof</span> <span class="nx">object</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span><span class="p">;</span>
-                <span class="p">}</span>
-
-                <span class="nx">extend</span><span class="p">(</span><span class="nb">Object</span><span class="p">,</span> <span class="p">{</span>
-                    <span class="nx">extend</span><span class="o">:</span> <span class="nx">extend</span><span class="p">,</span>
-                    <span class="nx">inspect</span><span class="o">:</span> <span class="nx">inspect</span><span class="p">,</span>
-                    <span class="nx">toJSON</span><span class="o">:</span> <span class="nx">NATIVE_JSON_STRINGIFY_SUPPORT</span> <span class="o">?</span> <span class="nx">stringify</span> <span class="o">:</span> <span class="nx">toJSON</span><span class="p">,</span>
-                    <span class="nx">toQueryString</span><span class="o">:</span> <span class="nx">toQueryString</span><span class="p">,</span>
-                    <span class="nx">toHTML</span><span class="o">:</span> <span class="nx">toHTML</span><span class="p">,</span>
-                    <span class="nx">keys</span><span class="o">:</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span> <span class="o">||</span> <span class="nx">keys</span><span class="p">,</span>
-                    <span class="nx">values</span><span class="o">:</span> <span class="nx">values</span><span class="p">,</span>
-                    <span class="nx">clone</span><span class="o">:</span> <span class="nx">clone</span><span class="p">,</span>
-                    <span class="nx">isElement</span><span class="o">:</span> <span class="nx">isElement</span><span class="p">,</span>
-                    <span class="nx">isArray</span><span class="o">:</span> <span class="nx">isArray</span><span class="p">,</span>
-                    <span class="nx">isHash</span><span class="o">:</span> <span class="nx">isHash</span><span class="p">,</span>
-                    <span class="nx">isFunction</span><span class="o">:</span> <span class="nx">isFunction</span><span class="p">,</span>
-                    <span class="nx">isString</span><span class="o">:</span> <span class="nx">isString</span><span class="p">,</span>
-                    <span class="nx">isNumber</span><span class="o">:</span> <span class="nx">isNumber</span><span class="p">,</span>
-                    <span class="nx">isDate</span><span class="o">:</span> <span class="nx">isDate</span><span class="p">,</span>
-                    <span class="nx">isUndefined</span><span class="o">:</span> <span class="nx">isUndefined</span>
-                <span class="p">});</span>
-            <span class="p">})(</span><span class="nx">_Object</span><span class="p">);</span>
-
-            <span class="k">return</span> <span class="nx">_Object</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">]);</span></div></div></div></div></body></html>
+            <span class="hljs-keyword">return</span> _Object;
+        }
+    ]);</div></div></div></div></body></html>
