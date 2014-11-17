@@ -156,7 +156,33 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "title": "class"
               },
               "depth": 3,
-              "outline": []
+              "outline": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Example",
+                    "slug": "example"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }
+              ]
             }, {
               "type": "file",
               "data": {
@@ -178,6 +204,118 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 3,
               "outline": [
                 {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Example",
+                    "slug": "example"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 5,
+                    "title": "Examples",
+                    "slug": "examples"
+                  },
+                  "depth": 5
+                }, {
                   "type": "heading",
                   "data": {
                     "level": 5,
@@ -291,16 +429,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Creating inheritable class properties with 'extend'.",
-                "slug": "creating-inheritable-class-properties-with-extend"
+                "title": "Creating inheritable class properties with &#39;extend&#39;.",
+                "slug": "creating-inheritable-class-properties-with-39extend39"
               },
               "depth": 3
             }, {
               "type": "heading",
               "data": {
                 "level": 1,
-                "title": "Adding instance methods with 'include'",
-                "slug": "adding-instance-methods-with-include"
+                "title": "Adding instance methods with &#39;include&#39;",
+                "slug": "adding-instance-methods-with-39include39"
               },
               "depth": 1
             }, {

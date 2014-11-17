@@ -13,7 +13,7 @@ angular.module('AClassAbove')
 
                     Object.defineProperty(Klass, 'instance', {
                         get: function() {
-                            this._instance = this._instance || this.getInstance();
+                            this._instance = this._instance || this.createInstance();
                             return this._instance;
                         }
                     });
@@ -24,7 +24,7 @@ angular.module('AClassAbove')
 
                     // may want to override this with custom 
                     // arguments for the initialize
-                    getInstance: function() {
+                    createInstance: function() {
                         return new this();
                     },
 
