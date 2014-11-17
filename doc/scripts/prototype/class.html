@@ -1,252 +1,281 @@
-<!DOCTYPE html><html lang="en"><head><title>scripts/prototype/class</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="scripts/prototype/class"><meta name="groc-project-path" content="scripts/prototype/class.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/prototype/class.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">update</span><span class="hljs-params">(array, args)</span> {</span>
-        <span class="hljs-keyword">var</span> arrayLength = array.length,
-            length = args.length;
-        <span class="hljs-keyword">while</span> (length--) array[arrayLength + length] = args[length];
-        <span class="hljs-keyword">return</span> array;
-    }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Function#argumentNames() -&gt; Array</p>
-<p> Reads the argument names as stated in the function definition and returns
+<!DOCTYPE html><html lang="en"><head><title>scripts/prototype/class</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="scripts/prototype/class"><meta name="groc-project-path" content="scripts/prototype/class.js"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/prototype/class.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">update</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">args</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">arrayLength</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+            <span class="nx">length</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nx">length</span><span class="o">--</span><span class="p">)</span> <span class="nx">array</span><span class="p">[</span><span class="nx">arrayLength</span> <span class="o">+</span> <span class="nx">length</span><span class="p">]</span> <span class="o">=</span> <span class="nx">args</span><span class="p">[</span><span class="nx">length</span><span class="p">];</span>
+        <span class="k">return</span> <span class="nx">array</span><span class="p">;</span>
+    <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Function#argumentNames() -> Array</p>
+
+<p>Reads the argument names as stated in the function definition and returns
  the values as an array of strings (or an empty array if the function is
  defined without parameters).</p>
-<h5 id="examples">Examples</h5>
+
+<p>##### Examples</p>
+
 <pre><code> function fn(foo, bar) {
    return foo + bar;
  }
  fn.argumentNames();
- //-&gt; [&#39;foo&#39;, &#39;bar&#39;]
+ //-&gt; ['foo', 'bar']
 
  Prototype.emptyFunction.argumentNames();
- //-&gt; []</code></pre>
-<p> *</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">argumentNames</span><span class="hljs-params">()</span> {</span>
-        <span class="hljs-keyword">var</span> names = <span class="hljs-keyword">this</span>.toString().match(<span class="hljs-regexp">/^[\s\(]*function[^(]*\(([^)]*)\)/</span>)[<span class="hljs-number">1</span>]
-            .replace(<span class="hljs-regexp">/\/\/.*?[\r\n]|\/\*(?:.|[\r\n])*?\*\//g</span>, <span class="hljs-string">''</span>)
-            .replace(<span class="hljs-regexp">/\s+/g</span>, <span class="hljs-string">''</span>).split(<span class="hljs-string">','</span>);
-        <span class="hljs-keyword">return</span> names.length == <span class="hljs-number">1</span> &amp;&amp; !names[<span class="hljs-number">0</span>] ? [] : names;
-    }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Function#wrap(wrapper) -&gt; Function</p>
-<ul>
-<li><p>wrapper (Function): The function to use as a wrapper.</p>
-<p>Returns a function &quot;wrapped&quot; around the original function.</p>
+ //-&gt; []
+</code></pre>
+
+<p>*</p></div></div><div class="code"><div class="wrapper">    <span class="kd">function</span> <span class="nx">argumentNames</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">names</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">toString</span><span class="p">().</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^[\s\(]*function[^(]*\(([^)]*)\)/</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\/\/.*?[\r\n]|\/\*(?:.|[\r\n])*?\*\//g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\s+/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">names</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">?</span> <span class="p">[]</span> <span class="o">:</span> <span class="nx">names</span><span class="p">;</span>
+    <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Function#wrap(wrapper) -> Function
+ - wrapper (Function): The function to use as a wrapper.</p>
+
+<p>Returns a function "wrapped" around the original function.</p>
+
 <p>[[Function#wrap]] distills the essence of aspect-oriented programming into
-a single method, letting you easily build on existing functions by
-specifying before and after behavior, transforming the return value, or
-even preventing the original function from being called.</p>
+ a single method, letting you easily build on existing functions by
+ specifying before and after behavior, transforming the return value, or
+ even preventing the original function from being called.</p>
+
 <p>The wraper function is called with this signature:</p>
-<p>  function wrapper(callOriginal[, args...])</p>
+
+<pre><code> function wrapper(callOriginal[, args...])
+</code></pre>
+
 <p>...where <code>callOriginal</code> is a function that can be used to call the
-original (wrapped) function (or not, as appropriate). (<code>callOriginal</code> is
-not a direct reference to the original function, there&#39;s a layer of
-indirection in-between that sets up the proper context [<code>this</code> value] for
-it.)</p>
-<h5 id="example">Example</h5>
-<p>  // Wrap String#capitalize so it accepts an additional argument
-  String.prototype.capitalize = String.prototype.capitalize.wrap(</p>
-<pre><code>function(callOriginal, eachWord) {
-  if (eachWord &amp;&amp; this.include(&quot; &quot;)) {
-    // capitalize each word in the string
-    return this.split(&quot; &quot;).invoke(&quot;capitalize&quot;).join(&quot; &quot;);
-  } else {
-    // proceed using the original function
-    return callOriginal();
-  }
-});</code></pre>
-<p>  &quot;hello world&quot;.capitalize();
-  // -&gt; &quot;Hello world&quot; (only the &#39;H&#39; is capitalized)
-  &quot;hello world&quot;.capitalize(true);
-  // -&gt; &quot;Hello World&quot; (both &#39;H&#39; and &#39;W&#39; are capitalized)
-*</p>
-</li>
-</ul></div></div><div class="code"><div class="wrapper">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">wrap</span><span class="hljs-params">(wrapper)</span> {</span>
-        <span class="hljs-keyword">var</span> __method = <span class="hljs-keyword">this</span>;
-        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-            <span class="hljs-keyword">var</span> a = update([__method.bind(<span class="hljs-keyword">this</span>)], <span class="hljs-built_in">arguments</span>);
-            <span class="hljs-keyword">return</span> wrapper.apply(<span class="hljs-keyword">this</span>, a);
-        }
-    }
+ original (wrapped) function (or not, as appropriate). (<code>callOriginal</code> is
+ not a direct reference to the original function, there's a layer of
+ indirection in-between that sets up the proper context [<code>this</code> value] for
+ it.)</p>
 
-    <span class="hljs-built_in">Function</span>.prototype.wrap = wrap;
-    <span class="hljs-built_in">Function</span>.prototype.argumentNames = argumentNames;
+<p>##### Example</p>
 
-})();
+<pre><code> // Wrap String#capitalize so it accepts an additional argument
+ String.prototype.capitalize = String.prototype.capitalize.wrap(
+   function(callOriginal, eachWord) {
+     if (eachWord &amp;&amp; this.include(" ")) {
+       // capitalize each word in the string
+       return this.split(" ").invoke("capitalize").join(" ");
+     } else {
+       // proceed using the original function
+       return callOriginal();
+     }
+   });
 
-angular.module(<span class="hljs-string">'AClassAbove'</span>)
-    .factory(<span class="hljs-string">'Prototype.Class'</span>, [<span class="hljs-string">'Prototype.Array'</span>, <span class="hljs-string">'Prototype.Object'</span>,
-        <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($A, Object)</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a few tweaks that we need to add to get this working outside of the prototype world</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> Prototype = {
-                emptyFunction: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>}
-            };</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Based on Alex Arnell&#39;s inheritance implementation. </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>section: Language
+ "hello world".capitalize();
+ // -&gt; "Hello world" (only the 'H' is capitalized)
+ "hello world".capitalize(true);
+ // -&gt; "Hello World" (both 'H' and 'W' are capitalized)
+</code></pre>
+
+<p>*</p></div></div><div class="code"><div class="wrapper">    <span class="kd">function</span> <span class="nx">wrap</span><span class="p">(</span><span class="nx">wrapper</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">__method</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">update</span><span class="p">([</span><span class="nx">__method</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)],</span> <span class="nx">arguments</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">wrapper</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">wrap</span> <span class="o">=</span> <span class="nx">wrap</span><span class="p">;</span>
+    <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">argumentNames</span> <span class="o">=</span> <span class="nx">argumentNames</span><span class="p">;</span>
+
+<span class="p">})();</span>
+
+<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;Prototype.Class&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Prototype.Array&#39;</span><span class="p">,</span> <span class="s1">&#39;Prototype.Object&#39;</span><span class="p">,</span>
+        <span class="kd">function</span><span class="p">(</span><span class="nx">$A</span><span class="p">,</span> <span class="nb">Object</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>a few tweaks that we need to add to get this working outside of the prototype world</p></div></div><div class="code"><div class="wrapper">            <span class="kd">var</span> <span class="nx">Prototype</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="nx">emptyFunction</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
+            <span class="p">};</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Based on Alex Arnell's inheritance implementation. </p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>section: Language
 class Class</p>
-<p> Manages Prototype&#39;s class-based OOP system.</p>
-<p> Refer to Prototype&#39;s web site for a <a href="http://prototypejs.org/learn/class-inheritance">tutorial on classes and
+
+<p>Manages Prototype's class-based OOP system.</p>
+
+<p>Refer to Prototype's web site for a <a href="http://prototypejs.org/learn/class-inheritance">tutorial on classes and
  inheritance</a>.
- *</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> Class = (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Some versions of JScript fail to enumerate over properties, names of which 
-correspond to non-enumerable properties in the prototype chain</p></div></div><div class="code"><div class="wrapper">                <span class="hljs-keyword">var</span> IS_DONTENUM_BUGGY = (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> p <span class="hljs-keyword">in</span> {
-                        toString: <span class="hljs-number">1</span>
-                    }) {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>check actual property name, so that it works with augmented Object.prototype</p></div></div><div class="code"><div class="wrapper">                        <span class="hljs-keyword">if</span> (p === <span class="hljs-string">'toString'</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-                    }
-                    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-                })();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Class.create([superclass][, methods...]) -&gt; Class</p>
-<ul>
-<li>superclass (Class): The optional superclass to inherit methods from.</li>
-<li><p>methods (Object): An object whose properties will be &quot;mixed-in&quot; to the
-  new class. Any number of mixins can be added; later mixins take
-  precedence.</p>
+ *</p></div></div><div class="code"><div class="wrapper">            <span class="kd">var</span> <span class="nx">Class</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Some versions of JScript fail to enumerate over properties, names of which 
+correspond to non-enumerable properties in the prototype chain</p></div></div><div class="code"><div class="wrapper">                <span class="kd">var</span> <span class="nx">IS_DONTENUM_BUGGY</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">p</span> <span class="k">in</span> <span class="p">{</span>
+                        <span class="nx">toString</span><span class="o">:</span> <span class="mi">1</span>
+                    <span class="p">})</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>check actual property name, so that it works with augmented Object.prototype</p></div></div><div class="code"><div class="wrapper">                        <span class="k">if</span> <span class="p">(</span><span class="nx">p</span> <span class="o">===</span> <span class="s1">&#39;toString&#39;</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+                    <span class="p">}</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">})();</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Class.create([superclass][, methods...]) -> Class
+   - superclass (Class): The optional superclass to inherit methods from.
+   - methods (Object): An object whose properties will be "mixed-in" to the
+       new class. Any number of mixins can be added; later mixins take
+       precedence.</p>
+
 <p>[[Class.create]] creates a class and returns a constructor function for
-instances of the class. Calling the constructor function (typically as
-part of a <code>new</code> statement) will invoke the class&#39;s <code>initialize</code> method.</p>
+ instances of the class. Calling the constructor function (typically as
+ part of a <code>new</code> statement) will invoke the class's <code>initialize</code> method.</p>
+
 <p>[[Class.create]] accepts two kinds of arguments. If the first argument is
-a [[Class]], it&#39;s used as the new class&#39;s superclass, and all its methods
-are inherited. Otherwise, any arguments passed are treated as objects,
-and their methods are copied over (&quot;mixed in&quot;) as instance methods of the
-new class. In cases of method name overlap, later arguments take
-precedence over earlier arguments.</p>
+ a [[Class]], it's used as the new class's superclass, and all its methods
+ are inherited. Otherwise, any arguments passed are treated as objects,
+ and their methods are copied over ("mixed in") as instance methods of the
+ new class. In cases of method name overlap, later arguments take
+ precedence over earlier arguments.</p>
+
 <p>If a subclass overrides an instance method declared in a superclass, the
-subclass&#39;s method can still access the original method. To do so, declare
-the subclass&#39;s method as normal, but insert <code>$super</code> as the first
-argument. This makes <code>$super</code> available as a method for use within the
-function.</p>
+ subclass's method can still access the original method. To do so, declare
+ the subclass's method as normal, but insert <code>$super</code> as the first
+ argument. This makes <code>$super</code> available as a method for use within the
+ function.</p>
+
 <p>To extend a class after it has been defined, use [[Class#addMethods]].</p>
+
 <p>For details, see the
-<a href="http://prototypejs.org/learn/class-inheritance">inheritance tutorial</a>
-on the Prototype website.
-*</p>
-</li>
-</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">subclass</span><span class="hljs-params">()</span> {</span>};
+ <a href="http://prototypejs.org/learn/class-inheritance">inheritance tutorial</a>
+ on the Prototype website.
+ *</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">subclass</span><span class="p">()</span> <span class="p">{};</span>
 
-                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">create</span><span class="hljs-params">()</span> {</span>
-                    <span class="hljs-keyword">var</span> parent = <span class="hljs-literal">null</span>,
-                        properties = $A(<span class="hljs-built_in">arguments</span>);
-                    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.isFunction(properties[<span class="hljs-number">0</span>]))
-                        parent = properties.shift();
+                <span class="kd">function</span> <span class="nx">create</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">parent</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+                        <span class="nx">properties</span> <span class="o">=</span> <span class="nx">$A</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                        <span class="nx">parent</span> <span class="o">=</span> <span class="nx">properties</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
 
-                    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">klass</span><span class="hljs-params">()</span> {</span>
-                        <span class="hljs-keyword">this</span>.initialize.apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
-                    }
+                    <span class="kd">function</span> <span class="nx">klass</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">initialize</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+                    <span class="p">}</span>
 
-                    <span class="hljs-built_in">Object</span>.extend(klass, Class.Methods);
-                    klass.superclass = parent;
-                    klass.subclasses = [];
+                    <span class="nb">Object</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">klass</span><span class="p">,</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">Methods</span><span class="p">);</span>
+                    <span class="nx">klass</span><span class="p">.</span><span class="nx">superclass</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">;</span>
+                    <span class="nx">klass</span><span class="p">.</span><span class="nx">subclasses</span> <span class="o">=</span> <span class="p">[];</span>
 
-                    <span class="hljs-keyword">if</span> (parent) {
-                        subclass.prototype = parent.prototype;
-                        klass.prototype = <span class="hljs-keyword">new</span> subclass;
-                        parent.subclasses.push(klass);
-                    }
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">parent</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">subclass</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+                        <span class="nx">klass</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">subclass</span><span class="p">;</span>
+                        <span class="nx">parent</span><span class="p">.</span><span class="nx">subclasses</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">klass</span><span class="p">);</span>
+                    <span class="p">}</span>
 
-                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, length = properties.length; i &lt; length; i++)
-                        klass.addMethods(properties[i]);
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">properties</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+                        <span class="nx">klass</span><span class="p">.</span><span class="nx">addMethods</span><span class="p">(</span><span class="nx">properties</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
 
-                    <span class="hljs-keyword">if</span> (!klass.prototype.initialize)
-                        klass.prototype.initialize = Prototype.emptyFunction;
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">klass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">initialize</span><span class="p">)</span>
+                        <span class="nx">klass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">initialize</span> <span class="o">=</span> <span class="nx">Prototype</span><span class="p">.</span><span class="nx">emptyFunction</span><span class="p">;</span>
 
-                    klass.prototype.constructor = klass;
-                    <span class="hljs-keyword">return</span> klass;
-                }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p> Class#addMethods(methods) -&gt; Class</p>
-<ul>
-<li><p>methods (Object): The methods to add to the class.</p>
+                    <span class="nx">klass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">klass</span><span class="p">;</span>
+                    <span class="k">return</span> <span class="nx">klass</span><span class="p">;</span>
+                <span class="p">}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Class#addMethods(methods) -> Class
+   - methods (Object): The methods to add to the class.</p>
+
 <p>Adds methods to an existing class.</p>
-<p>[[Class#addMethods]] is a method available on classes that have been
-defined with [[Class.create]]. It can be used to add new instance methods
-to that class, or overwrite existing methods, after the class has been
-defined.</p>
-<p>New methods propagate down the inheritance chain. If the class has
-subclasses, those subclasses will receive the new methods &mdash; even in
-the context of <code>$super</code> calls. The new methods also propagate to instances
-of the class and of all its subclasses, even those that have already been
-instantiated.</p>
-<h5 id="examples">Examples</h5>
-<p>var Animal = Class.create({
-  initialize: function(name, sound) {</p>
-<pre><code>this.name  = name;
-this.sound = sound;</code></pre>
-<p>  },</p>
-<p>  speak: function() {</p>
-<pre><code>alert(this.name + &quot; says: &quot; + this.sound + &quot;!&quot;);</code></pre>
-<p>  }
-});</p>
-<p>// subclassing Animal
-var Snake = Class.create(Animal, {
-  initialize: function($super, name) {</p>
-<pre><code>$super(name, &#39;hissssssssss&#39;);</code></pre>
-<p>  }
-});</p>
-<p>var ringneck = new Snake(&quot;Ringneck&quot;);
-ringneck.speak();</p>
-<p>//-&gt; alerts &quot;Ringneck says: hissssssss!&quot;</p>
-<p>// adding Snake#speak (with a supercall)
-Snake.addMethods({
-  speak: function($super) {</p>
-<pre><code>$super();
-alert(&quot;You should probably run. He looks really mad.&quot;);</code></pre>
-<p>  }
-});</p>
-<p>ringneck.speak();
-//-&gt; alerts &quot;Ringneck says: hissssssss!&quot;
-//-&gt; alerts &quot;You should probably run. He looks really mad.&quot;</p>
-<p>// redefining Animal#speak
-Animal.addMethods({
-  speak: function() {</p>
-<pre><code>alert(this.name + &#39;snarls: &#39; + this.sound + &#39;!&#39;);</code></pre>
-<p>  }
-});</p>
-<p>ringneck.speak();
-//-&gt; alerts &quot;Ringneck snarls: hissssssss!&quot;
-//-&gt; alerts &quot;You should probably run. He looks really mad.&quot;
-*</p>
-</li>
-</ul></div></div><div class="code"><div class="wrapper">                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addMethods</span><span class="hljs-params">(source)</span> {</span>
-                    <span class="hljs-keyword">var</span> ancestor = <span class="hljs-keyword">this</span>.superclass &amp;&amp; <span class="hljs-keyword">this</span>.superclass.prototype,
-                        properties = <span class="hljs-built_in">Object</span>.keys(source);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>IE6 doesn&#39;t enumerate <code>toString</code> and <code>valueOf</code> (among other built-in <code>Object.prototype</code>) properties,
-Force copy if they&#39;re not Object.prototype ones.
-Do not copy other Object.prototype.* for performance reasons</p></div></div><div class="code"><div class="wrapper">                    <span class="hljs-keyword">if</span> (IS_DONTENUM_BUGGY) {
-                        <span class="hljs-keyword">if</span> (source.toString != <span class="hljs-built_in">Object</span>.prototype.toString)
-                            properties.push(<span class="hljs-string">"toString"</span>);
-                        <span class="hljs-keyword">if</span> (source.valueOf != <span class="hljs-built_in">Object</span>.prototype.valueOf)
-                            properties.push(<span class="hljs-string">"valueOf"</span>);
-                    }
 
-                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>, length = properties.length; i &lt; length; i++) {
-                        <span class="hljs-keyword">var</span> property = properties[i],
-                            value = source[property];
-                        <span class="hljs-keyword">if</span> (ancestor &amp;&amp; <span class="hljs-built_in">Object</span>.isFunction(value) &amp;&amp;
-                            value.argumentNames()[<span class="hljs-number">0</span>] == <span class="hljs-string">"$super"</span>) {
-                            <span class="hljs-keyword">var</span> method = value;
-                            value = (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(m)</span> {</span>
-                                <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-                                    <span class="hljs-keyword">return</span> ancestor[m].apply(<span class="hljs-keyword">this</span>, <span class="hljs-built_in">arguments</span>);
-                                };
-                            })(property).wrap(method);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We used to use <code>bind</code> to ensure that <code>toString</code> and <code>valueOf</code>
-methods were called in the proper context, but now that we&#39;re 
-relying on native bind and/or an existing polyfill, we can&#39;t rely
+<p>[[Class#addMethods]] is a method available on classes that have been
+ defined with [[Class.create]]. It can be used to add new instance methods
+ to that class, or overwrite existing methods, after the class has been
+ defined.</p>
+
+<p>New methods propagate down the inheritance chain. If the class has
+ subclasses, those subclasses will receive the new methods &mdash; even in
+ the context of <code>$super</code> calls. The new methods also propagate to instances
+ of the class and of all its subclasses, even those that have already been
+ instantiated.</p>
+
+<p>##### Examples</p>
+
+<pre><code> var Animal = Class.create({
+   initialize: function(name, sound) {
+     this.name  = name;
+     this.sound = sound;
+   },
+
+   speak: function() {
+     alert(this.name + " says: " + this.sound + "!");
+   }
+ });
+
+ // subclassing Animal
+ var Snake = Class.create(Animal, {
+   initialize: function($super, name) {
+     $super(name, 'hissssssssss');
+   }
+ });
+
+ var ringneck = new Snake("Ringneck");
+ ringneck.speak();
+
+ //-&gt; alerts "Ringneck says: hissssssss!"
+
+ // adding Snake#speak (with a supercall)
+ Snake.addMethods({
+   speak: function($super) {
+     $super();
+     alert("You should probably run. He looks really mad.");
+   }
+ });
+
+ ringneck.speak();
+ //-&gt; alerts "Ringneck says: hissssssss!"
+ //-&gt; alerts "You should probably run. He looks really mad."
+
+ // redefining Animal#speak
+ Animal.addMethods({
+   speak: function() {
+     alert(this.name + 'snarls: ' + this.sound + '!');
+   }
+ });
+
+ ringneck.speak();
+ //-&gt; alerts "Ringneck snarls: hissssssss!"
+ //-&gt; alerts "You should probably run. He looks really mad."
+</code></pre>
+
+<p>*</p></div></div><div class="code"><div class="wrapper">                <span class="kd">function</span> <span class="nx">addMethods</span><span class="p">(</span><span class="nx">source</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">ancestor</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">superclass</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">superclass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">,</span>
+                        <span class="nx">properties</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">source</span><span class="p">);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>IE6 doesn't enumerate <code>toString</code> and <code>valueOf</code> (among other built-in <code>Object.prototype</code>) properties,
+Force copy if they're not Object.prototype ones.
+Do not copy other Object.prototype.* for performance reasons</p></div></div><div class="code"><div class="wrapper">                    <span class="k">if</span> <span class="p">(</span><span class="nx">IS_DONTENUM_BUGGY</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nx">source</span><span class="p">.</span><span class="nx">toString</span> <span class="o">!=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">toString</span><span class="p">)</span>
+                            <span class="nx">properties</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;toString&quot;</span><span class="p">);</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nx">source</span><span class="p">.</span><span class="nx">valueOf</span> <span class="o">!=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">)</span>
+                            <span class="nx">properties</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;valueOf&quot;</span><span class="p">);</span>
+                    <span class="p">}</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">properties</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">property</span> <span class="o">=</span> <span class="nx">properties</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span>
+                            <span class="nx">value</span> <span class="o">=</span> <span class="nx">source</span><span class="p">[</span><span class="nx">property</span><span class="p">];</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nx">ancestor</span> <span class="o">&amp;&amp;</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">isFunction</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                            <span class="nx">value</span><span class="p">.</span><span class="nx">argumentNames</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;$super&quot;</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="kd">var</span> <span class="nx">method</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+                            <span class="nx">value</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                                    <span class="k">return</span> <span class="nx">ancestor</span><span class="p">[</span><span class="nx">m</span><span class="p">].</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+                                <span class="p">};</span>
+                            <span class="p">})(</span><span class="nx">property</span><span class="p">).</span><span class="nx">wrap</span><span class="p">(</span><span class="nx">method</span><span class="p">);</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>We used to use <code>bind</code> to ensure that <code>toString</code> and <code>valueOf</code>
+methods were called in the proper context, but now that we're 
+relying on native bind and/or an existing polyfill, we can't rely
 on the nuanced behavior of whatever <code>bind</code> implementation is on
 the page.
-MDC&#39;s polyfill, for instance, doesn&#39;t like binding functions that
-haven&#39;t got a <code>prototype</code> property defined.</p></div></div><div class="code"><div class="wrapper">                            value.valueOf = (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(method)</span> {</span>
-                                <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-                                    <span class="hljs-keyword">return</span> method.valueOf.call(method);
-                                };
-                            })(method);
+MDC's polyfill, for instance, doesn't like binding functions that
+haven't got a <code>prototype</code> property defined.</p></div></div><div class="code"><div class="wrapper">                            <span class="nx">value</span><span class="p">.</span><span class="nx">valueOf</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                                    <span class="k">return</span> <span class="nx">method</span><span class="p">.</span><span class="nx">valueOf</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">method</span><span class="p">);</span>
+                                <span class="p">};</span>
+                            <span class="p">})(</span><span class="nx">method</span><span class="p">);</span>
 
-                            value.toString = (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(method)</span> {</span>
-                                <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-                                    <span class="hljs-keyword">return</span> method.toString.call(method);
-                                };
-                            })(method);
-                        }
-                        <span class="hljs-keyword">this</span>.prototype[property] = value;
-                    }
+                            <span class="nx">value</span><span class="p">.</span><span class="nx">toString</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">method</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                                    <span class="k">return</span> <span class="nx">method</span><span class="p">.</span><span class="nx">toString</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">method</span><span class="p">);</span>
+                                <span class="p">};</span>
+                            <span class="p">})(</span><span class="nx">method</span><span class="p">);</span>
+                        <span class="p">}</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span><span class="nx">property</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+                    <span class="p">}</span>
 
-                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
-                }
+                    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+                <span class="p">}</span>
 
-                <span class="hljs-keyword">return</span> {
-                    create: create,
-                    Methods: {
-                        addMethods: addMethods
-                    }
-                };
-            })();
+                <span class="k">return</span> <span class="p">{</span>
+                    <span class="nx">create</span><span class="o">:</span> <span class="nx">create</span><span class="p">,</span>
+                    <span class="nx">Methods</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">addMethods</span><span class="o">:</span> <span class="nx">addMethods</span>
+                    <span class="p">}</span>
+                <span class="p">};</span>
+            <span class="p">})();</span>
 
-            <span class="hljs-keyword">return</span> Class;
+            <span class="k">return</span> <span class="nx">Class</span><span class="p">;</span>
 
-        }
-    ]);</div></div></div></div></body></html>
+        <span class="p">}</span>
+    <span class="p">]);</span></div></div></div></div></body></html>

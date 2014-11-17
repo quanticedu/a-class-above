@@ -1,38 +1,38 @@
-<!DOCTYPE html><html lang="en"><head><title>scripts/a_module_above</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="scripts/a_module_above"><meta name="groc-project-path" content="scripts/a_module_above.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/a_module_above.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper">angular.module(<span class="hljs-string">'AClassAbove'</span>)
-.factory(<span class="hljs-string">'AModuleAbove'</span>, [<span class="hljs-string">'AClassAbove'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(AClassAbove)</span>{</span>
+<!DOCTYPE html><html lang="en"><head><title>scripts/a_module_above</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="scripts/a_module_above"><meta name="groc-project-path" content="scripts/a_module_above.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/a_module_above.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">)</span>
+<span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;AModuleAbove&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">AClassAbove</span><span class="p">){</span>
         
-    <span class="hljs-keyword">var</span> AModuleAbove = AClassAbove.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+    <span class="kd">var</span> <span class="nx">AModuleAbove</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
         
-        <span class="hljs-keyword">return</span> {
+        <span class="k">return</span> <span class="p">{</span>
             
-            initialize: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(options)</span> {</span>
-                <span class="hljs-keyword">this</span>.included = options.included || <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>};
-                <span class="hljs-keyword">this</span>.classMixin = options.classMixin || {};
-                <span class="hljs-keyword">delete</span> options.included;
-                <span class="hljs-keyword">delete</span> options.classMixin;
-                <span class="hljs-keyword">this</span>.instanceMixin = options;
-            },
+            <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">included</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">included</span> <span class="o">||</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">classMixin</span> <span class="o">||</span> <span class="p">{};</span>
+                <span class="k">delete</span> <span class="nx">options</span><span class="p">.</span><span class="nx">included</span><span class="p">;</span>
+                <span class="k">delete</span> <span class="nx">options</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">instanceMixin</span> <span class="o">=</span> <span class="nx">options</span><span class="p">;</span>
+            <span class="p">},</span>
             
-            includeIn: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(target)</span> {</span>
-                target.include(<span class="hljs-keyword">this</span>.instanceMixin);
-                target.extend(<span class="hljs-keyword">this</span>.classMixin);
-                <span class="hljs-keyword">this</span>.included(target);                
-            }
-        };
+            <span class="nx">includeIn</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">target</span><span class="p">.</span><span class="nx">include</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">instanceMixin</span><span class="p">);</span>
+                <span class="nx">target</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">classMixin</span><span class="p">);</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">included</span><span class="p">(</span><span class="nx">target</span><span class="p">);</span>                
+            <span class="p">}</span>
+        <span class="p">};</span>
         
-    });
+    <span class="p">});</span>
     
-    AClassAbove.extend({
-        _includeWithoutAModuleAbove: AClassAbove.include
-    });
-    AClassAbove.include = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(moduleOrOptions)</span> {</span>
-        <span class="hljs-keyword">if</span> (moduleOrOptions.constructor === AModuleAbove) {
-            moduleOrOptions.includeIn(<span class="hljs-keyword">this</span>);
-        } <span class="hljs-keyword">else</span> {
-            <span class="hljs-keyword">this</span>._includeWithoutAModuleAbove(moduleOrOptions);
-        }
-    };
+    <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">_includeWithoutAModuleAbove</span><span class="o">:</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">include</span>
+    <span class="p">});</span>
+    <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">include</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">moduleOrOptions</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">moduleOrOptions</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">===</span> <span class="nx">AModuleAbove</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">moduleOrOptions</span><span class="p">.</span><span class="nx">includeIn</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">_includeWithoutAModuleAbove</span><span class="p">(</span><span class="nx">moduleOrOptions</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
     
-    <span class="hljs-keyword">return</span> AModuleAbove;
+    <span class="k">return</span> <span class="nx">AModuleAbove</span><span class="p">;</span>
         
-}]);</div></div></div></div></body></html>
+<span class="p">}]);</span></div></div></div></div></body></html>

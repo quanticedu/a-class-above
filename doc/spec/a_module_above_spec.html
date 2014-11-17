@@ -1,48 +1,49 @@
-<!DOCTYPE html><html lang="en"><head><title>spec/a_module_above_spec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="spec/a_module_above_spec"><meta name="groc-project-path" content="spec/a_module_above_spec.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">spec/a_module_above_spec.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span>;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="amoduleabove">AModuleAbove</h1>
-<p>In a way similar to ruby&#39;s modules, AClassAbove modules allow you 
+<!DOCTYPE html><html lang="en"><head><title>spec/a_module_above_spec</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="spec/a_module_above_spec"><meta name="groc-project-path" content="spec/a_module_above_spec.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">spec/a_module_above_spec.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h1 id="amoduleabove">AModuleAbove</h1>
+
+<p>In a way similar to ruby's modules, AClassAbove modules allow you 
 to easily create a mixin with instance properties, class properties, 
-and an included method.</p></div></div><div class="code"><div class="wrapper">describe(<span class="hljs-string">'AClassAbove.Module'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+and an included method.</p></div></div><div class="code"><div class="wrapper"><span class="nx">describe</span><span class="p">(</span><span class="s1">&#39;AClassAbove.Module&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
 
-    <span class="hljs-keyword">var</span> AClassAbove, MyModule, MyClass;
+    <span class="kd">var</span> <span class="nx">AClassAbove</span><span class="p">,</span> <span class="nx">MyModule</span><span class="p">,</span> <span class="nx">MyClass</span><span class="p">;</span>
 
-    beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-        module(<span class="hljs-string">'AClassAbove'</span>);
+    <span class="nx">beforeEach</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">);</span>
 
-        inject(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(_AClassAbove_, AModuleAbove)</span> {</span>
-            AClassAbove = _AClassAbove_;
-            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Each new module is an instance of AModuleAbove</p></div></div><div class="code"><div class="wrapper">            MyModule = <span class="hljs-keyword">new</span> AModuleAbove({
-                </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>You can define an &#39;included&#39; method, which will
-be called every time this module is included in a class</p></div></div><div class="code"><div class="wrapper">                included: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(target)</span> {</span>},
-                </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>you can define a &#39;classMixin&#39;, which will be added to
-the class using the &#39;extend&#39; method</p></div></div><div class="code"><div class="wrapper">                classMixin: {
-                    classProperty: <span class="hljs-string">'defined'</span>
-                },
+        <span class="nx">inject</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">_AClassAbove_</span><span class="p">,</span> <span class="nx">AModuleAbove</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">AClassAbove</span> <span class="o">=</span> <span class="nx">_AClassAbove_</span><span class="p">;</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Each new module is an instance of AModuleAbove</p></div></div><div class="code"><div class="wrapper">            <span class="nx">MyModule</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AModuleAbove</span><span class="p">({</span>
+                </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>You can define an 'included' method, which will
+be called every time this module is included in a class</p></div></div><div class="code"><div class="wrapper">                <span class="nx">included</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span> <span class="p">{},</span>
+                </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>you can define a 'classMixin', which will be added to
+the class using the 'extend' method</p></div></div><div class="code"><div class="wrapper">                <span class="nx">classMixin</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">classProperty</span><span class="o">:</span> <span class="s1">&#39;defined&#39;</span>
+                <span class="p">},</span>
                 </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>all instance properties will be added to the prototype
-using the &#39;include&#39; method</p></div></div><div class="code"><div class="wrapper">                instanceProperty: <span class="hljs-string">'defined'</span>
+using the 'include' method</p></div></div><div class="code"><div class="wrapper">                <span class="nx">instanceProperty</span><span class="o">:</span> <span class="s1">&#39;defined&#39;</span>
                 
-            });
-            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add the module to a class using the &#39;include&#39; method</p></div></div><div class="code"><div class="wrapper">            MyClass = AClassAbove.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
-                <span class="hljs-keyword">this</span>.include(MyModule);
-            });
-        });
+            <span class="p">});</span>
+            </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add the module to a class using the 'include' method</p></div></div><div class="code"><div class="wrapper">            <span class="nx">MyClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">include</span><span class="p">(</span><span class="nx">MyModule</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
 
-    });
+    <span class="p">});</span>
     
-    it(<span class="hljs-string">'should call the included method'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-        spyOn(MyModule, <span class="hljs-string">'included'</span>);
-        MyClass = AClassAbove.subclass(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span>{</span>
-            <span class="hljs-keyword">this</span>.include(MyModule);
-        });
-        expect(MyModule.included).toHaveBeenCalledWith(MyClass);
-    });
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should call the included method&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">spyOn</span><span class="p">(</span><span class="nx">MyModule</span><span class="p">,</span> <span class="s1">&#39;included&#39;</span><span class="p">);</span>
+        <span class="nx">MyClass</span> <span class="o">=</span> <span class="nx">AClassAbove</span><span class="p">.</span><span class="nx">subclass</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">include</span><span class="p">(</span><span class="nx">MyModule</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">expect</span><span class="p">(</span><span class="nx">MyModule</span><span class="p">.</span><span class="nx">included</span><span class="p">).</span><span class="nx">toHaveBeenCalledWith</span><span class="p">(</span><span class="nx">MyClass</span><span class="p">);</span>
+    <span class="p">});</span>
     
-    it(<span class="hljs-string">'should add the class mixin'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-       expect(MyClass.classProperty).toBe(<span class="hljs-string">'defined'</span>);
-    });
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should add the class mixin&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+       <span class="nx">expect</span><span class="p">(</span><span class="nx">MyClass</span><span class="p">.</span><span class="nx">classProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;defined&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
     
-    it(<span class="hljs-string">'should add the instance mixin'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
-       expect(<span class="hljs-keyword">new</span> MyClass().instanceProperty).toBe(<span class="hljs-string">'defined'</span>);
-    });
+    <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should add the instance mixin&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+       <span class="nx">expect</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyClass</span><span class="p">().</span><span class="nx">instanceProperty</span><span class="p">).</span><span class="nx">toBe</span><span class="p">(</span><span class="s1">&#39;defined&#39;</span><span class="p">);</span>
+    <span class="p">});</span>
 
 
-});</div></div></div></div></body></html>
+<span class="p">});</span></div></div></div></div></body></html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><title>scripts/singleton</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="scripts/singleton"><meta name="groc-project-path" content="scripts/singleton.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">scripts/singleton.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+
+<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;AClassAbove&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;Singleton&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;$injector&#39;</span><span class="p">,</span>
+
+        <span class="kd">function</span><span class="p">(</span><span class="nx">$injector</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="kd">var</span> <span class="nx">AModuleAbove</span> <span class="o">=</span> <span class="nx">$injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;AModuleAbove&#39;</span><span class="p">);</span>
+
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">AModuleAbove</span><span class="p">({</span>
+
+                <span class="nx">included</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Klass</span><span class="p">)</span> <span class="p">{</span>
+
+                    <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="nx">Klass</span><span class="p">,</span> <span class="s1">&#39;instance&#39;</span><span class="p">,</span> <span class="p">{</span>
+                        <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                            <span class="k">this</span><span class="p">.</span><span class="nx">_instance</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_instance</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">getInstance</span><span class="p">();</span>
+                            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">_instance</span><span class="p">;</span>
+                        <span class="p">}</span>
+                    <span class="p">});</span>
+
+                <span class="p">},</span>
+
+                <span class="nx">classMixin</span><span class="o">:</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>may want to override this with custom 
+arguments for the initialize</p></div></div><div class="code"><div class="wrapper">                    <span class="nx">getInstance</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="k">return</span> <span class="k">new</span> <span class="k">this</span><span class="p">();</span>
+                    <span class="p">},</span>
+
+                    <span class="nx">defineSingletonProperty</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">propOrProps</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">props</span> <span class="o">=</span> <span class="k">typeof</span> <span class="nx">propOrProps</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">?</span> <span class="p">[</span><span class="nx">propOrProps</span><span class="p">]</span> <span class="o">:</span> <span class="nx">propOrProps</span><span class="p">;</span>
+
+                        <span class="nx">props</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">meth</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nb">Object</span><span class="p">.</span><span class="nx">defineProperty</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">meth</span><span class="p">,</span> <span class="p">{</span>
+                                <span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                                    <span class="kd">var</span> <span class="nx">val</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">[</span><span class="nx">meth</span><span class="p">];</span>
+                                    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">val</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+                                        <span class="k">return</span> <span class="nx">val</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">instance</span><span class="p">);</span>
+                                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                                        <span class="k">return</span> <span class="nx">val</span><span class="p">;</span>
+                                    <span class="p">}</span>
+                                <span class="p">},</span>
+                                <span class="nx">set</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                                    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="nx">meth</span> <span class="o">+</span> <span class="s1">&#39; cannot be set.  If you are trying to mock this in tests, mock it on the prototype&#39;</span><span class="p">);</span>
+                                <span class="p">}</span>
+                            <span class="p">});</span>
+                        <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+
+        <span class="p">}</span>
+    <span class="p">]);</span></div></div></div></div></body></html>
