@@ -15,7 +15,7 @@ From the bower.json file
     {
 	    "...
 	    "dependencies": {
-	        "a-class-above": "0.0.21"
+	        "a-class-above": "0.0.22"
 	    },
 		...
 	}
@@ -29,7 +29,7 @@ or
 
 ### Documentation
 
-[0.0.21](http://pedago.github.io/a-class-above/docs/0.0.21)  
+[0.0.22](http://pedago.github.io/a-class-above/docs/0.0.22)  
 [0.0.20](http://pedago.github.io/a-class-above/docs/0.0.20)  
 [0.0.19](http://pedago.github.io/a-class-above/docs/0.0.19)  
 [0.0.18](http://pedago.github.io/a-class-above/docs/0.0.18)  
