@@ -31,8 +31,7 @@ describe('AClassAbove.Singleton', function() {
             // Define the list of properties that exist on
             // the singleton instance that should be accessible
             // on the class
-            MyClass.defineSingletonProperty('myProp');
-            MyClass.defineSingletonProperty('myMethod');
+            MyClass.defineSingletonProperty('myProp', 'myMethod');
         });
 
     });

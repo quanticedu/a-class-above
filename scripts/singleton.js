@@ -28,10 +28,10 @@ angular.module('AClassAbove')
                         return new this();
                     },
 
-                    defineSingletonProperty: function(propOrProps) {
-                        var props = typeof propOrProps === 'string' ? [propOrProps] : propOrProps;
+                    defineSingletonProperty: function() {
+                        var args = Array.prototype.slice.call(arguments, 0);
 
-                        props.forEach(function(meth) {
+                        args.forEach(function(meth) {
                             Object.defineProperty(this, meth, {
                                 get: function() {
                                     var val = this.instance[meth];
