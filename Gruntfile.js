@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-    
+
     // configurable paths
     var yeomanConfig = {
         app: 'app',
@@ -11,37 +11,38 @@ module.exports = function(grunt) {
         yeomanConfig.app = require('./bower.json').appPath || yeomanConfig.app;
     } catch (e) {}
 
-    grunt.initConfig({  
+    grunt.initConfig({
         yeoman: yeomanConfig,
         pkg: grunt.file.readJSON('package.json'),
         karma: {
             unit: {
                 options: {
                     frameworks: ['jasmine'],
-                    browsers: ['Chrome'],
+                    browsers: ['PhantomJS'],
                     singleRun: false,
                     autoWatch: true,
                     files: [
                         'karma/phantomjs-hacks.js',
                         'bower_components/angular/angular.js',
                         'bower_components/angular-mocks/angular-mocks.js',
-                        'scripts/<%= yeoman.main %>.js', 
+                        'scripts/<%= yeoman.main %>.js',
                         'scripts/**/*.js',
-                        'spec/**/*.js']
+                        'spec/**/*.js'
+                    ]
                 }
             }
         },
-        
+
         groc: {
             javascript: [
-              "spec/**/*.js", "scripts/**/*.js", "doc.md"
-            ],            
+                "spec/**/*.js", "scripts/**/*.js", "doc.md"
+            ],
             options: {
-              "out": "doc/",
-              "index": 'doc.md'
+                "out": "doc/",
+                "index": 'doc.md'
             }
         },
-        
+
         clean: {
             dist: {
                 files: [{
@@ -51,19 +52,19 @@ module.exports = function(grunt) {
             },
             server: '.tmp'
         },
-        
+
         concat: {
             dist: {
                 src: ['scripts/<%= yeoman.main %>.js', 'scripts/**/*.js'],
                 dest: '<%= yeoman.dist %>/<%= yeoman.main %>.js',
             },
         },
-        
+
         uglify: {
-            '<%= yeoman.dist %>/<%= yeoman.main %>.min.js': [ '<%= yeoman.dist %>/<%= yeoman.main %>.js' ] 
+            '<%= yeoman.dist %>/<%= yeoman.main %>.min.js': ['<%= yeoman.dist %>/<%= yeoman.main %>.js']
         }
     });
-    
+
     grunt.loadNpmTasks('grunt-groc');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -71,6 +72,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.registerTask('default', ['karma']);
     grunt.registerTask('build', [
-        'clean:dist', 'concat','uglify'
-        ]);
+        'clean:dist', 'concat', 'uglify'
+    ]);
 };
