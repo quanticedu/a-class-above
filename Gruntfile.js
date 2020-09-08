@@ -23,8 +23,8 @@ module.exports = function(grunt) {
                     autoWatch: true,
                     files: [
                         'karma/phantomjs-hacks.js',
-                        'bower_components/angular/angular.js',
-                        'bower_components/angular-mocks/angular-mocks.js',
+                        'node_modules/angular/angular.js',
+                        'node_modules/angular-mocks/angular-mocks.js',
                         'scripts/<%= yeoman.main %>.js',
                         'scripts/**/*.js',
                         'spec/**/*.js'
