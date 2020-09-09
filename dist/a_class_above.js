@@ -243,7 +243,7 @@ angular.module('AClassAbove')
      **/
 
     function argumentNames() {
-        if (!Object.isFunction(this)) {
+        if (typeof this !== 'function') {
             return [];
         }
         var names = this.toString().match(/^[\s\(]*[^(]*\(([^)]*)\)/)[1]
