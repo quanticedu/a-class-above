@@ -26,9 +26,6 @@
      **/
 
     function argumentNames() {
-        if (typeof this !== 'function') {
-            return [];
-        }
         var names = this.toString().match(/^[\s\(]*[^(]*\(([^)]*)\)/)[1]
             .replace(/\/\/.*?[\r\n]|\/\*(?:.|[\r\n])*?\*\//g, '')
             .replace(/\s+/g, '').split(',');
