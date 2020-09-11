@@ -243,9 +243,14 @@ angular.module('AClassAbove')
      **/
 
     function argumentNames() {
-        var names = this.toString().match(/^[\s\(]*[^(]*\(([^)]*)\)/)[1]
+        var stringified = this.toString();
+        var matches = stringified.match(/^[\s\(]*[^(]*\(([^)]*)\)/) ||
+            stringified.match(/^[\s]*([^=]*)/);
+
+        var names = matches ? matches[1]
             .replace(/\/\/.*?[\r\n]|\/\*(?:.|[\r\n])*?\*\//g, '')
-            .replace(/\s+/g, '').split(',');
+            .replace(/\s+/g, '').split(',') : [];
+
         return names.length == 1 && !names[0] ? [] : names;
     }
 
