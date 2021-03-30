@@ -35,7 +35,8 @@ angular.module('AClassAbove', [])
                         },
                         set: function(val) { 
                             this[localName] = val;
-                        }
+                        },
+                        configurable: true
                     });
                 }.bind(this));   
                 
